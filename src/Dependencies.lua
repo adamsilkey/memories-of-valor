@@ -79,13 +79,19 @@ GFX.TILES = {
     WORLD = 'world',
 }
 
+---@enum GFX.BACKGROUNDS Namespace for Backgrounds
+GFX.BACKGROUNDS = {
+    TITLE = 'title',
+}
+
 
 ---
 --- TEXTURES -------------------------------------------------------------------
 ---
 
 Textures = {
-    [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png')
+    [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png'),
+    [GFX.BACKGROUNDS.TITLE] = love.graphics.newImage('assets/backgrounds/title.png'),
 }
 
 
@@ -95,4 +101,30 @@ Textures = {
 
 Frames = {
     [GFX.TILES.WORLD] = GenerateQuads(Textures[GFX.TILES.WORLD], TILE_SIZE, TILE_SIZE),
+}
+
+
+---
+--- FONTS ----------------------------------------------------------------------
+---
+
+---@enum FONTS Enum for Font Constants
+FONTS = {
+    TITLE = 'title',
+    TITLE_SMALL = 'title-small',
+    SMALL = 'small',
+    MEDIUM = 'medium',
+    LARGE = 'large',
+    GOTHIC_MEDIUM = 'gothic-medium',
+    GOTHIC_LARGE = 'gothic-large',
+}
+
+Fonts = {
+    [FONTS.SMALL] = love.graphics.newFont('assets/fonts/font.ttf', 8),
+    [FONTS.MEDIUM] = love.graphics.newFont('assets/fonts/font.ttf', 16),
+    [FONTS.LARGE] = love.graphics.newFont('assets/fonts/font.ttf', 32),
+    [FONTS.GOTHIC_MEDIUM] = love.graphics.newFont('assets/fonts/GothicPixels.ttf', 16),
+    [FONTS.GOTHIC_LARGE] = love.graphics.newFont('assets/fonts/GothicPixels.ttf', 32),
+    [FONTS.TITLE] = love.graphics.newFont('assets/fonts/zelda.otf', 64),
+    [FONTS.TITLE_SMALL] = love.graphics.newFont('assets/fonts/zelda.otf', 32)
 }

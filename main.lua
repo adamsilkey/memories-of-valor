@@ -10,6 +10,7 @@
 require "src/Dependencies"
 
 function love.load()
+    print("Hello?")
     math.randomseed(os.time())
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Memories of Valor')
@@ -54,16 +55,17 @@ function love.keypressed(key)
 end
 
 function love.keyboard.wasPressed(key)
-    return love.keyboard.keysPressed(key)
+    return love.keyboard.keysPressed[key]
 end
 
 function love.update(dt)
     Timer.update(dt)
+    StateStack:update(dt)
     love.keyboard.keysPressed = {}
 end
 
 function love.draw()
     push:start()
-
+    StateStack:render()
     push:finish()
 end
