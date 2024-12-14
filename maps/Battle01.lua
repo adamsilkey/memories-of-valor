@@ -14,10 +14,10 @@ return {
   properties = {},
   tilesets = {
     {
-      name = "Tileset",
+      name = "World",
       firstgid = 1,
-      filename = "../tiled/MapTileset.tsx",
-      exportfilename = "MapTileset.lua"
+      filename = "../tiled/WorldTileset.tsx",
+      exportfilename = "WorldTileset.lua"
     },
     {
       name = "AutoMap Rules",
