@@ -28,6 +28,10 @@ require 'src/Entity'
 require 'src/StateMachine'
 require 'src/Util'
 
+require 'src/helpers/Coordinates'
+require 'src/helpers/Set'
+require 'src/helpers/SparseArray'
+
 require 'src/defs/EntityDefs'
 
 require 'src/ui/Cursor'
