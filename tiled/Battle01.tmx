@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="../maps/Battle01.lua" format="lua"/>
  </editorsettings>
- <tileset firstgid="1" source="MapTileset.tsx"/>
+ <tileset firstgid="1" source="WorldTileset.tsx"/>
  <tileset firstgid="401" source=":/automap-tiles.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="20" locked="1">
   <data encoding="csv">
