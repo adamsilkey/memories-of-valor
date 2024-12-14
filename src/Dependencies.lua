@@ -13,6 +13,7 @@
 
 Class = require 'lib/class'
 push = require 'lib/push'
+Event = require 'lib/knife.event'
 Timer = require 'lib/knife.timer'
 
 ---
@@ -20,6 +21,7 @@ Timer = require 'lib/knife.timer'
 ---
 
 require 'src/Constants'
+require 'src/Events'
 
 require 'src/Animation'
 require 'src/Entity'

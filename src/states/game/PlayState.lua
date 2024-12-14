@@ -36,15 +36,15 @@ end
 
 function PlayState:update(dt)
     if not self.dialogueOpened then
-        if love.keyboard.wasPressed(KEYS.ENTER) or love.keyboard.wasPressed(KEYS.RETURN) then
-            StateStack:push(FadeInState({
-                r = 1, g = 1, b = 1
-            }, 1,
-            function ()
-                StateStack:pop()
-                StateStack:push(StartState())
-            end))
-        end
+        -- if love.keyboard.wasPressed(KEYS.ENTER) or love.keyboard.wasPressed(KEYS.RETURN) then
+        --     StateStack:push(FadeInState({
+        --         r = 1, g = 1, b = 1
+        --     }, 1,
+        --     function ()
+        --         StateStack:pop()
+        --         StateStack:push(StartState())
+        --     end))
+        -- end
     end
 
     self.level:update(dt)

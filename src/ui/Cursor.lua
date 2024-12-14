@@ -20,6 +20,9 @@ function Cursor:init(level)
     ---@type boolean Flag to determine if we should show the cursor or not
     self.visible = true
 
+    ---@type boolean Flag to determine if we can click
+    self.canInput = true
+
     ---@type seconds Track how long it's been since the cursor has moved from keyboard
     self.keyholdTimer = 0
 
@@ -31,11 +34,11 @@ function Cursor:init(level)
         a = 1
     }
 
-    self.tileX = 0      ---@type tileX X position on grid
-    self.tileY = 0      ---@type tileY Y position on grid
+    self.tileX = 1      ---@type tileX X position on grid
+    self.tileY = 1      ---@type tileY Y position on grid
 
-    self.selectedX = nil    ---@type tileX Selected X position on grid
-    self.selectedY = nil    ---@type tileY Selected Y position on grid
+    -- self.selectedX = nil    ---@type tileX Selected X position on grid
+    -- self.selectedY = nil    ---@type tileY Selected Y position on grid
 end
 
 function Cursor:update(dt)
@@ -55,35 +58,62 @@ function Cursor:update(dt)
     end
 
     -- CURSOR SELECTION
-    -- if we've pressed enter or used the mouse, to select or deselect a tile...
-    if love.keyboard.wasPressed(KEYS.ENTER) or
+    -- if we've pressed enter or used the mouse...
+    if self.canInput and (
+        love.keyboard.wasPressed(KEYS.ENTER) or
         love.keyboard.wasPressed(KEYS.RETURN) or
-        love.mouse.wasPressed(1) then
+        love.mouse.wasPressed(1)) then
 
-        -- if same tile as currently highlighted, deselect
-        -- local x = self.boardHighlightX + 1
-        -- local y = self.boardHighlightY + 1
-
-        self.selectedX = self.tileX
-        self.selectedY = self.tileY
+        Event.dispatch(EVENTS.CURSOR_SELECT, self.tileX, self.tileY)
     end
 
+    --     local newX = self.tileX
+    --     local newY = self.tileY
 
+    --     -- if same tile as currently highlighted, deselect
+    --     if newX == self.selectedX and newY == self.selectedY then
+    --         self.selectedX = nil
+    --         self.selectedY = nil
+
+    --     -- Otherwise, set the new highlighted tile
+    --     else
+    --         self.selectedX = newX
+    --         self.selectedY = newY
+    --     end
+    -- end
 end
 
 function Cursor:render()
+    -- Render cursor if visible
     if self.visible then
+
+        -- Render normal select
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
         -- draw actual cursor rect
         love.graphics.setLineWidth(1)
         love.graphics.rectangle(
             'line',
-            self.tileX * TILE_SIZE,
-            self.tileY * TILE_SIZE,
+            (self.tileX - 1) * TILE_SIZE,  --- Lua grids are one based, graphics are 0
+            (self.tileY - 1) * TILE_SIZE,  --- Lua grids are one based, graphics are 0
             16,
             16,
             1
         )
+
+        -- -- Render selected tile
+        -- if self.selectedX ~= nil and self.selectedY ~= nil then
+        --     local bright = 1
+        --     love.graphics.setColor(bright, bright, bright, 1)
+        --     love.graphics.setLineWidth(1)
+        --     love.graphics.rectangle(
+        --         'line',
+        --         self.selectedX * TILE_SIZE,
+        --         self.selectedY * TILE_SIZE,
+        --         16,
+        --         16,
+        --         1
+        --     )
+        -- end
     end
 
     if DEBUG_MODE then
@@ -94,16 +124,20 @@ function Cursor:render()
         local fontOffest = 10
 
         local cursorMsg = 'Cursor: ('..self.tileX..','..self.tileY..')'
-        local selectedMsg = 'Selected: N/A'
-        if self.selectedX ~= nil and self.selectedY ~= nil then
-            selectedMsg  = 'Selected: ('..self.selectedX..','..self.selectedY..')'
-        end
+        -- local selectedMsg = 'Selected: N/A'
+        -- if self.selectedX ~= nil and self.selectedY ~= nil then
+        --     selectedMsg  = 'Selected: ('..self.selectedX..','..self.selectedY..')'
+        -- end
         local pos = 'MOUSE: [off screen]'
         if mouse.x ~= nil and mouse.y ~= nil then
             pos = 'MOUSE: ('..mouse.x..','..mouse.y..')'
         end
 
-        local msgs = {pos, selectedMsg, cursorMsg,}
+        local msgs = {
+            pos,
+            -- selectedMsg,
+            cursorMsg,
+        }
 
         for i, msg in ipairs(msgs) do
             love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'left')
@@ -125,11 +159,11 @@ function Cursor:handleMouse()
     if mouse.x ~= nil and mouse.y ~= nil then
         -- The offsets look funny here, but Lua is generally 1-based
 
-        local x = math.floor((mouse.x / TILE_SIZE) + 1)
-        local y = math.floor((mouse.y / TILE_SIZE) + 1)
+        local x = math.floor((mouse.x / TILE_SIZE)) + 1
+        local y = math.floor((mouse.y / TILE_SIZE)) + 1
 
         if self.level:inbounds(x, y) then
-            self.tileX, self.tileY = x - 1, y - 1
+            self.tileX, self.tileY = x, y
         end
     end
 end

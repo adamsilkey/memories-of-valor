@@ -27,35 +27,31 @@ function Level:init(tilemapDef)
     ---@type Cursor Strategic Cursor used to select items on map
     self.cursor = Cursor(self)
 
+    -- Entities in the Level
+    ---@type Entity[]
+    self.entities = {}
+
+    self:addGoodGuys()
+end
+
+
+function Level:addGoodGuys()
     local heroDef = ENTITY_DEFS[ENTITIES.HEROES.SWORD_1]
     ---@type Entity
-    self.entity = Entity(heroDef, 2, 2)
-    self.entity.stateMachine = StateMachine {
-        [STATES.ENTITY_IDLE_STATE] = function() return EntityIdleState(self.entity) end,
+    local swordHero = Entity(heroDef, 2, 2)
+    swordHero.stateMachine = StateMachine {
+        [STATES.ENTITY_IDLE_STATE] = function() return EntityIdleState(swordHero) end,
     }
-    self.entity:changeState(STATES.ENTITY_IDLE_STATE)
+    swordHero:changeState(STATES.ENTITY_IDLE_STATE)
 
-    -- ---@type PlayerDef
-    -- local playerDef = {
-    --     animations = ENTITY_DEFS['player'].animations,
-    --     mapX = 10,
-    --     mapY = 10,
-    --     width = 16,
-    --     height = 16,
-    -- }
-    -- ---@type Player
-    -- self.player = Player(playerDef)
-
-    -- self.player.stateMachine = StateMachine {
-    --     [Entity.STATES.WALK] = function() return PlayerWalkState(self.player, self) end,
-    --     [Entity.STATES.IDLE] = function() return PlayerIdleState(self.player) end
-    -- }
-    -- self.player.stateMachine:change(Entity.STATES.IDLE)
+    table.insert(self.entities, swordHero)
 end
 
 function Level:update(dt)
     -- self.player:update(dt)
-    self.entity:update(dt)
+    for i, entity in ipairs(self.entities) do
+        entity:update(dt)
+    end
     self.cursor:update(dt)
 end
 
@@ -64,7 +60,9 @@ function Level:render()
         layer:render()
     end
 
-    self.entity:render()
+    for i, entity in ipairs(self.entities) do
+        entity:render()
+    end
 
     self.cursor:render()
 end
