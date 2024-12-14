@@ -14,18 +14,34 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Memories of Valor')
 
-    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT)
+    push:setupScreen(
+        VIRTUAL_WIDTH,
+        VIRTUAL_HEIGHT,
+        WINDOW_WIDTH,
+        WINDOW_HEIGHT,
+        {
+            fullscreen = false,
+            vsync = true,
+            resizable = true,
+        }
+    )
 
+    ---@type {[KEYS]: true}
     love.keyboard.keysPressed = {}
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
-function push.resize(w, h)
+function love.resize(w, h)
     push:resize(w, h)
 end
 
 function love.keypressed(key)
-    love.keyboard.keysPressed = {}
+    if key == KEYS.ESCAPE then
+        ---@TODO gonna want to implement the state stack stuff here
+        love.event.quit()
+    end
+
+    love.keyboard.keysPressed[key] = true
 end
 
 function love.keyboard.wasPressed(key)
@@ -33,6 +49,7 @@ function love.keyboard.wasPressed(key)
 end
 
 function love.update(dt)
+    Timer.update(dt)
     love.keyboard.keysPressed = {}
 end
 
