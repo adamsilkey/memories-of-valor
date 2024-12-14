@@ -81,3 +81,28 @@ function Level:render()
     -- self.grassLayer:render()
     -- self.player:render()
 end
+
+--[[
+    Convert mouse coordinates into Level.gridX/Level.gridY
+]]
+---comment
+---@param mouseX pixels
+---@param mouseY pixels
+---@return tileX | nil
+---@return tileY | nil
+function Level:findTileFromMouseCoordinate(mouseX, mouseY)
+    -- Algorithm reverses Colton's rendering algorithm:
+    -- 1. Divide by 16 (tile width/ height)
+    -- 2. Add one, which is an offset
+    local tileX = nil
+    local tileY = nil
+
+    if mouseX ~= nil then
+        tileX = math.floor((mouseX / TILE_SIZE) + 1)
+    end
+    if mouseY ~= nil then
+        tileY = math.floor((mouseY / TILE_SIZE) + 1)
+    end
+
+    return tileX, tileY
+end

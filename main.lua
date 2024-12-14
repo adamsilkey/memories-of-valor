@@ -36,8 +36,17 @@ function love.load()
     StateStack = StateStack()
     StateStack:push(StartState())
 
-    ---@type {[KEYS]: true}
+    -- Initialize all input tables
+
+    ---@type {[KEYS]: true} Tracks which keys have been pressed
     love.keyboard.keysPressed = {}
+
+    love.mouse.buttonPressed = {}
+
+    ---@type boolean Tracks whether the mouse has been moved
+    love.mouse.wasMoved = false
+
+    mouse = {}
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -58,10 +67,40 @@ function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
 end
 
+-- Callback function for detecting mouse moves
+function love.mousemoved(x, y, dx, dy, istouch)
+    love.mouse.wasMoved = true
+end
+
+-- Callback function for detecting mouse presses
+function love.mousepressed(x, y, button)
+    ---@TODO could probably have this tfack the location that the mopuse was pressed
+
+    love.mouse.buttonPressed[button] = true
+end
+
+function love.mouse.wasPressed(button)
+    if love.mouse.buttonPressed[button] then
+        return true
+    else
+        return false
+    end
+end
+
+
 function love.update(dt)
+
+    -- Track mouse changes
+    local x, y = love.mouse.getPosition()
+    mouse.x, mouse.y = push:toGame(x, y)
+
     Timer.update(dt)
     StateStack:update(dt)
+
+    -- Reset all input tables/flags
     love.keyboard.keysPressed = {}
+    love.mouse.buttonPressed = {}
+    love.mouse.wasMoved = false
 end
 
 function love.draw()

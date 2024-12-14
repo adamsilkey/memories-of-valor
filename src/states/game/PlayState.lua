@@ -63,6 +63,19 @@ function PlayState:update(dt)
         elseif love.keyboard.wasPressed(KEYS.RIGHT) then
             self.cursorSelectX = math.min(self.level.tilemapWidth - 1, self.cursorSelectX + 1)
         end
+
+        -- Mouse controls
+        if love.mouse.wasMoved then
+            local x, y = self.level:findTileFromMouseCoordinate(mouse.x, mouse.y)
+
+            if x ~= nil and y ~= nil then
+                if x >= 1 and x <= self.level.tilemapWidth and y >= 1 and y <= self.level.tilemapHeight then
+                    self.cursorSelectX, self.cursorSelectY = x - 1, y - 1
+                end
+            end
+        end
+
+
     end
 
         --- Heal your pokemon
@@ -102,6 +115,7 @@ end
 function PlayState:render()
     self.level:render()
 
+    ---@TODO move this all to a cursor class
     if self.showCursor then
         local whiteLevel = 233
         -- love.graphics.setColor(217/255, 87/255, 99/255, 1)
