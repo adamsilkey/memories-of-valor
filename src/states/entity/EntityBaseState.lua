@@ -44,7 +44,15 @@ function EntityBaseState:render()
 
         love.graphics.setColor(1, 1, 1, 1)
         love.graphics.setFont(Fonts[FONTS.SMALL])
-        love.graphics.printf('Grid: ('..self.entity.gridX..','..self.entity.gridY..')', 0, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH, 'center')
-        love.graphics.printf('POS: ('..x..','..y..')', 0, VIRTUAL_HEIGHT - 10, VIRTUAL_WIDTH, 'center')
+        local fontOffest = 10
+
+        local entityGridMsg = 'Grid: ('..self.entity.gridX..','..self.entity.gridY..')'
+        local entityPosMsg = 'POS: ('..x..','..y..')'
+
+        local msgs = {entityPosMsg, entityGridMsg}
+
+        for i, msg in ipairs(msgs) do
+            love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'center')
+        end
     end
 end

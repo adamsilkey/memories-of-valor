@@ -33,6 +33,9 @@ function Cursor:init(level)
 
     self.tileX = 0      ---@type tileX X position on grid
     self.tileY = 0      ---@type tileY Y position on grid
+
+    self.selectedX = nil    ---@type tileX Selected X position on grid
+    self.selectedY = nil    ---@type tileY Selected Y position on grid
 end
 
 function Cursor:update(dt)
@@ -42,13 +45,30 @@ function Cursor:update(dt)
     ---@type seconds
     self.keyholdTimer = self.keyholdTimer + dt
 
+    -- CURSOR MOVEMENT
+
     -- Keyboard controls
     self:handleKeyboard()
-
     -- Mouse controls
     if love.mouse.wasMoved then
         self:handleMouse()
     end
+
+    -- CURSOR SELECTION
+    -- if we've pressed enter or used the mouse, to select or deselect a tile...
+    if love.keyboard.wasPressed(KEYS.ENTER) or
+        love.keyboard.wasPressed(KEYS.RETURN) or
+        love.mouse.wasPressed(1) then
+
+        -- if same tile as currently highlighted, deselect
+        -- local x = self.boardHighlightX + 1
+        -- local y = self.boardHighlightY + 1
+
+        self.selectedX = self.tileX
+        self.selectedY = self.tileY
+    end
+
+
 end
 
 function Cursor:render()
@@ -70,13 +90,24 @@ function Cursor:render()
         ---@DEBUG Shows cursor stats
         love.graphics.setColor(1, 1, 1, 1)
         love.graphics.setFont(Fonts[FONTS.SMALL])
-        love.graphics.printf('Cursor: ('..self.tileX..','..self.tileY..')', 0, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH, 'left')
 
+        local fontOffest = 10
+
+        local cursorMsg = 'Cursor: ('..self.tileX..','..self.tileY..')'
+        local selectedMsg = 'Selected: N/A'
+        if self.selectedX ~= nil and self.selectedY ~= nil then
+            selectedMsg  = 'Selected: ('..self.selectedX..','..self.selectedY..')'
+        end
         local pos = 'MOUSE: [off screen]'
         if mouse.x ~= nil and mouse.y ~= nil then
             pos = 'MOUSE: ('..mouse.x..','..mouse.y..')'
         end
-        love.graphics.printf(pos, 0, VIRTUAL_HEIGHT - 10, VIRTUAL_WIDTH, 'left')
+
+        local msgs = {pos, selectedMsg, cursorMsg,}
+
+        for i, msg in ipairs(msgs) do
+            love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'left')
+        end
     end
 end
 
