@@ -21,6 +21,8 @@ Timer = require 'lib/knife.timer'
 
 require 'src/Constants'
 
+require 'src/Util'
+
 
 ---
 --- MAPS -----------------------------------------------------------------------
