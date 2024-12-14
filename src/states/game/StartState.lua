@@ -19,7 +19,15 @@ function StartState:update(dt)
         love.event.quit()
     end
 
-    -- if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if love.keyboard.wasPressed(KEYS.ENTER) or love.keyboard.wasPressed(KEYS.RETURN) then
+        StateStack:push(FadeInState({
+            r = 1, g = 1, b = 1
+        }, 1,
+        function ()
+            StateStack:pop()
+            StateStack:push(StartState())
+        end))
+    end
     --     gStateMachine:change('play')
     -- end
 end
