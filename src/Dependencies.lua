@@ -16,12 +16,39 @@ push = require 'lib/push'
 Timer = require 'lib/knife.timer'
 
 ---
---- CONSTANTS ------------------------------------------------------------------
+--- REQUIRES -------------------------------------------------------------------
 ---
 
 require 'src/Constants'
 
+require 'src/StateMachine'
 require 'src/Util'
+
+
+---
+--- STATES ---------------------------------------------------------------------
+---
+
+--- When adding a state, be sure to register the state name here in STATES.NAMES
+--- There's almost certainly a better way to do this.
+---
+---@TODO: Really, what we should have here is a States Class which handles all
+--- the references to all the states. And then, whenever we create a new state class
+--- we should then register that state in the class, which will add the state constants
+--- (like name) to a global registry that we can then check against and make sure we're
+--- never passing in improper values
+
+require 'src/states/BaseState'
+require 'src/states/StateStack'
+
+---@enum STATES Namespace for holding State Names, which are defined in the states themselves
+STATES = {
+    BASE = BaseState.NAME,
+}
+
+--- Registered States
+---@alias State
+---| BaseState
 
 
 ---
