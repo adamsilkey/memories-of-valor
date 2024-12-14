@@ -33,7 +33,9 @@
 ---
 
 VIRTUAL_WIDTH = 384     ---@type iPixels Virtual Screen Width, in pixels
-VIRTUAL_HEIGHT = 216    ---@type iPixels Virtual Screen Height, in pixels
+-- VIRTUAL_HEIGHT = 216    ---@type iPixels Virtual Screen Height, in pixels
+----- Ius this a bug????????
+VIRTUAL_HEIGHT = 208    ---@type iPixels Virtual Screen Height, in pixels
 
 WINDOW_WIDTH = 1280     ---@type iPixels Default Window Width, in pixels
 WINDOW_HEIGHT = 720     ---@type iPixels Default Window Height, in pixels
