@@ -13,7 +13,7 @@ Tile = Class{}
 ---comment
 ---@param x tileX The X coordinate of a Tile in the Map (not pixels)
 ---@param y tileY The Y coordinate of a Tile in the Map (not pixels)
----@param id frameID
+---@param id frame
 function Tile:init(x, y, id)
     -- The X coordinate of a Tile in the Map (not pixels)
     self.x = x

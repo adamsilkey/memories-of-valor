@@ -23,7 +23,7 @@
 ---@alias tileX integer The X coordinate of a Tile in the Map (not pixels)
 ---@alias tileY integer The Y coordinate of a Tile in the Map (not pixels)
 
----@alias frameID integer Texture frame ID (i.e. numerical index to quad)
+---@alias frame integer Texture frame ID (i.e. numerical index to quad)
 
 ---@alias seconds number Time in seconds (can be fractional)
 

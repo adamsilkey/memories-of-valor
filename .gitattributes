@@ -1,0 +1,18 @@
+# Default
+*                 text    eol=lf
+
+# Basic Text Files
+*.md              text    eol=lf
+*.txt             text    eol=lf
+
+# Lua Files
+*.lua             text    eol=lf
+
+# Python Files
+*.py              text    eol=lf
+
+# Binary Files
+*.mp3             -text
+*.png             -text
+*.ttf             -text
+*.wav             -text

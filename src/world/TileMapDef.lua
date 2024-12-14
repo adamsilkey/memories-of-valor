@@ -26,7 +26,7 @@
 ---@field parallaxy number
 ---@field properties table
 ---@field encoding string
----@field data frameID[]
+---@field data frame[]
 
 ---@class TilesetDef
 ---@field name integer
