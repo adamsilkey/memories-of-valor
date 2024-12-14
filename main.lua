@@ -34,7 +34,11 @@ function love.load()
 
     ---@type StateStack
     StateStack = StateStack()
-    StateStack:push(StartState())
+    -- StateStack:push(StartState())
+
+    ---@DEBUG Just setting our start state to PlayState(), so we don't have to have the transition each time
+    ---@DEBUG Besure to reset this
+    StateStack:push(PlayState())
 
     -- Initialize all input tables
 
@@ -100,7 +104,6 @@ function love.keyboard.anyReleased(...)
 
     return false
 end
-
 
 -- Callback function for detecting mouse moves
 function love.mousemoved(x, y, dx, dy, istouch)

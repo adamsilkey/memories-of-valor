@@ -21,8 +21,12 @@ Timer = require 'lib/knife.timer'
 
 require 'src/Constants'
 
+require 'src/Animation'
+require 'src/Entity'
 require 'src/StateMachine'
 require 'src/Util'
+
+require 'src/defs/EntityDefs'
 
 require 'src/ui/Cursor'
 
@@ -47,13 +51,16 @@ require 'src/world/TileMapDef'
 require 'src/states/BaseState'
 require 'src/states/StateStack'
 
-require 'src/states/game/PlayState'
+require 'src/states/entity/EntityIdleState'
 require 'src/states/game/FadeInState'
+require 'src/states/game/PlayState'
 require 'src/states/game/StartState'
 
 ---@enum STATES Namespace for holding State Names, which are defined in the states themselves
 STATES = {
     BASE = BaseState.NAME,
+
+    ENTITY_IDLE_STATE = EntityIdleState.NAME,
 
     --- Game States
     FADE_IN = FadeInState.NAME,
@@ -64,6 +71,7 @@ STATES = {
 --- Registered States
 ---@alias State
 ---| BaseState
+---| EntityIdleState
 ---| FadeInState
 ---| PlayState
 ---| StartState
@@ -91,15 +99,19 @@ MapDefs = {
 ---@class GFX Namespace for Graphics Constants
 GFX = {}
 
+---@enum GFX.BACKGROUNDS Namespace for Backgrounds
+GFX.BACKGROUNDS = {
+    TITLE = 'title',
+}
+
 ---@enum GFX.TILES Namespace for tiles
 GFX.TILES = {
     WORLD = 'world',
 }
 
----@enum GFX.BACKGROUNDS Namespace for Backgrounds
-GFX.BACKGROUNDS = {
-    TITLE = 'title',
-}
+
+---@TODO Add a check here that checks for any name collisions
+---@TODO Check collisions against EntityDefs
 
 
 ---
@@ -107,8 +119,9 @@ GFX.BACKGROUNDS = {
 ---
 
 Textures = {
-    [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png'),
+    [ENTITIES.HEROES.SWORD_1] = love.graphics.newImage('assets/actors/heroes/Sword1.png'),
     [GFX.BACKGROUNDS.TITLE] = love.graphics.newImage('assets/backgrounds/title.png'),
+    [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png'),
 }
 
 
@@ -117,6 +130,7 @@ Textures = {
 ---
 
 Frames = {
+    [ENTITIES.HEROES.SWORD_1] = GenerateQuads(Textures[ENTITIES.HEROES.SWORD_1], ACTOR_SIZE, ACTOR_SIZE),
     [GFX.TILES.WORLD] = GenerateQuads(Textures[GFX.TILES.WORLD], TILE_SIZE, TILE_SIZE),
 }
 

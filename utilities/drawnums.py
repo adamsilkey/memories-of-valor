@@ -10,10 +10,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 # size of tile sheet on Y and X axis in tiles; replace these with something positive
-TILES_HIGH = 20
-TILES_WIDE = 20
-
-TILE_SIZE = 16
+########## CHECK TO MAKE SURE THESE ARE ALL RIGHT!!!!!!!!!!!!!
+# TILES_HIGH = 14
+# TILES_WIDE = 8
+# TILE_SIZE = 32
 
 if __name__ == '__main__':
 

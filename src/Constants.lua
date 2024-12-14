@@ -40,7 +40,8 @@ VIRTUAL_HEIGHT = 208    ---@type iPixels Virtual Screen Height, in pixels
 WINDOW_WIDTH = 1280     ---@type iPixels Default Window Width, in pixels
 WINDOW_HEIGHT = 720     ---@type iPixels Default Window Height, in pixels
 
-TILE_SIZE = 16           ---@type iPixels Tile Size
+TILE_SIZE = 16          ---@type iPixels Tile Size
+ACTOR_SIZE = 32         ---@type iPixels Tile Size of Actors
 
 
 ---

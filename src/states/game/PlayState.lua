@@ -52,6 +52,4 @@ end
 
 function PlayState:render()
     self.level:render()
-
-    ---@TODO move this all to a cursor class
 end

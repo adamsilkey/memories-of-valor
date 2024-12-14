@@ -20,6 +20,8 @@
 ---@param tileheight iPixels Tile height in pixels (0-based, row)
 ---@return love.Quad[] spritesheet Array of Quads for spritesheet
 function GenerateQuads(atlas, tilewidth, tileheight)
+    print('tilewidth = '.. tilewidth)
+    print('tilewidth = '.. tileheight)
     local sheetWidth = atlas:getWidth() / tilewidth
     local sheetHeight = atlas:getHeight() / tileheight
 
@@ -36,4 +38,20 @@ function GenerateQuads(atlas, tilewidth, tileheight)
     end
 
     return spritesheet
+end
+
+
+---comment
+---@param ... table
+---@return table
+function MergeKeyValueTables(...)
+    local mergedTable = {}
+    for idx, table in ipairs({...}) do
+        for key, value in pairs(table) do
+            assert(mergedTable[key] ~= nil, "Error: duplicate key in table - "..key)
+            mergedTable[key] = value
+        end
+    end
+
+    return mergedTable
 end

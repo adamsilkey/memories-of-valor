@@ -27,6 +27,13 @@ function Level:init(tilemapDef)
     ---@type Cursor Strategic Cursor used to select items on map
     self.cursor = Cursor(self)
 
+    local heroDef = ENTITY_DEFS[ENTITIES.HEROES.SWORD_1]
+    ---@type Entity
+    self.entity = Entity(heroDef, 2, 2)
+    self.entity.stateMachine = StateMachine {
+        [STATES.ENTITY_IDLE_STATE] = function() return EntityIdleState(self.entity) end,
+    }
+    self.entity:changeState(STATES.ENTITY_IDLE_STATE)
 
     -- ---@type PlayerDef
     -- local playerDef = {
@@ -48,6 +55,7 @@ end
 
 function Level:update(dt)
     -- self.player:update(dt)
+    self.entity:update(dt)
     self.cursor:update(dt)
 end
 
@@ -55,6 +63,8 @@ function Level:render()
     for index, layer in ipairs(self.layers) do
         layer:render()
     end
+
+    self.entity:render()
 
     self.cursor:render()
 end
