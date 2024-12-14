@@ -51,6 +51,7 @@ TILE_SIZE = 16           ---@type iPixels Tile Size
 ---@field r number Red value (between 0 - 1)
 ---@field g number Green value (between 0 - 1)
 ---@field b number Blue value (between 0 - 1)
+---@field a? number Alpha value (between 0 - 1)
 
 
 ---

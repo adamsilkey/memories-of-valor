@@ -24,6 +24,8 @@ require 'src/Constants'
 require 'src/StateMachine'
 require 'src/Util'
 
+require 'src/ui/Cursor'
+
 require 'src/world/Level'
 require 'src/world/Tile'
 require 'src/world/TileMap'
