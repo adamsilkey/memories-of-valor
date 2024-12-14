@@ -21,6 +21,15 @@ function PlayState:init()
     ---@type Level
     self.level = Level(MapDefs.Battle01)
 
+    ---@type boolean Controls whether or not we can input
+    self.canInput = true
+
+    -- Variables related to grid movement
+
+    self.showCursor = true      ---@type boolean Controls the display of the cursor
+    self.cursorSelectX = 0        ---@type tileX X position on grid we're highlighting
+    self.cursorSelectY = 0        ---@type tileY X position on grid we're highlighting
+
     -- gSounds[SOUNDS.MUSIC.FIELD]:setLooping(true)
     -- gSounds[SOUNDS.MUSIC.FIELD]:play()
 
@@ -38,6 +47,22 @@ function PlayState:update(dt)
             StateStack:pop()
             StateStack:push(StartState())
         end))
+    end
+
+    --- Probably want to move all this move functionality to a separate move state for the stack
+    --- The tilemapHeight/Width are offset by one because this is 0-based
+    if self.canInput then
+        ---@TODO Add sound here
+        -- Move cursor around
+        if love.keyboard.wasPressed(KEYS.UP) then
+            self.cursorSelectY = math.max(0, self.cursorSelectY - 1)
+        elseif love.keyboard.wasPressed(KEYS.DOWN) then
+            self.cursorSelectY = math.min(self.level.tilemapHeight - 1, self.cursorSelectY + 1)
+        elseif love.keyboard.wasPressed(KEYS.LEFT) then
+            self.cursorSelectX = math.max(0, self.cursorSelectX - 1)
+        elseif love.keyboard.wasPressed(KEYS.RIGHT) then
+            self.cursorSelectX = math.min(self.level.tilemapWidth - 1, self.cursorSelectX + 1)
+        end
     end
 
         --- Heal your pokemon
@@ -76,4 +101,21 @@ end
 
 function PlayState:render()
     self.level:render()
+
+    if self.showCursor then
+        local whiteLevel = 233
+        -- love.graphics.setColor(217/255, 87/255, 99/255, 1)
+        love.graphics.setColor(whiteLevel/255, whiteLevel/255, whiteLevel/255, 1)
+    end
+
+    -- draw actual cursor rect
+    love.graphics.setLineWidth(1)
+    love.graphics.rectangle(
+        'line',
+        self.cursorSelectX * TILE_SIZE,
+        self.cursorSelectY * TILE_SIZE,
+        16,
+        16,
+        1
+    )
 end
