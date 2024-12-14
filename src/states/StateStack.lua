@@ -49,3 +49,15 @@ function StateStack:pop()
     self:top():exit()
     table.remove(self.states)
 end
+
+function StateStack:debugShowStack()
+    ---@DEBUG Shows cursor stats
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setFont(Fonts[FONTS.SMALL])
+
+    local fontOffset = 10
+    for i, state in ipairs(self.states) do
+        local msg = i .. ': ' .. state.NAME
+        love.graphics.printf(msg, 0, 0 + fontOffset * (i - 1), VIRTUAL_WIDTH, 'left')
+    end
+end

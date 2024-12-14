@@ -9,7 +9,8 @@
 
 require "src/Dependencies"
 
-DEBUG_MODE = false
+---@DEBUG BESURE TO SET THIS TO FALSE AND DISABLE OVERALL BUG ABILITY
+DEBUG_MODE = true
 
 function love.load()
     math.randomseed(os.time())
@@ -152,5 +153,8 @@ end
 function love.draw()
     push:start()
     StateStack:render()
+    if DEBUG_MODE then
+        StateStack:debugShowStack()
+    end
     push:finish()
 end
