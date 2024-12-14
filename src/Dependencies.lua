@@ -41,6 +41,7 @@ require 'src/Util'
 require 'src/states/BaseState'
 require 'src/states/StateStack'
 
+require 'src/states/game/FadeInState'
 require 'src/states/game/StartState'
 
 ---@enum STATES Namespace for holding State Names, which are defined in the states themselves
@@ -48,12 +49,14 @@ STATES = {
     BASE = BaseState.NAME,
 
     --- Game States
+    FADE_IN = FadeInState.NAME,
     START = StartState.NAME,
 }
 
 --- Registered States
 ---@alias State
 ---| BaseState
+---| FadeInState
 ---| StartState
 
 
