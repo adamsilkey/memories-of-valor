@@ -25,11 +25,11 @@ function StartState:update(dt)
 end
 
 function StartState:render()
-    love.graphics.draw(Textures[GFX.BACKGROUNDS.TITLE], 0, 0, 0)
+    -- love.graphics.draw(Textures[GFX.BACKGROUNDS.TITLE], 0, 0, 0)
 
-    -- love.graphics.draw(Textures[GFX.BACKGROUNDS.TITLE], 0, 0, 0,
-    --     VIRTUAL_WIDTH / Textures[GFX.BACKGROUNDS.TITLE]:getWidth(),
-    --     VIRTUAL_HEIGHT / Textures[GFX.BACKGROUNDS.TITLE]:getHeight())
+    love.graphics.draw(Textures[GFX.BACKGROUNDS.TITLE], 0, 0, 0,
+        VIRTUAL_WIDTH / Textures[GFX.BACKGROUNDS.TITLE]:getWidth(),
+        VIRTUAL_HEIGHT / Textures[GFX.BACKGROUNDS.TITLE]:getHeight())
 
     -- -- love.graphics.setFont(gFonts['gothic-medium'])
     -- -- love.graphics.printf('Legend of', 0, VIRTUAL_HEIGHT / 2 - 32, VIRTUAL_WIDTH, 'center')
@@ -52,5 +52,5 @@ function StartState:render()
 
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(Fonts[FONTS.TITLE_SMALL])
-    love.graphics.printf('Press Enter', 0, VIRTUAL_HEIGHT / 2 + 94, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Press Enter', 0, VIRTUAL_HEIGHT / 2 + 64, VIRTUAL_WIDTH, 'center')
 end

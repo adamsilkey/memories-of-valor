@@ -32,8 +32,8 @@
 --- CONSTANTS ------------------------------------------------------------------
 ---
 
-VIRTUAL_WIDTH = 640     ---@type iPixels Virtual Screen Width, in pixels
-VIRTUAL_HEIGHT = 360    ---@type iPixels Virtual Screen Height, in pixels
+VIRTUAL_WIDTH = 384     ---@type iPixels Virtual Screen Width, in pixels
+VIRTUAL_HEIGHT = 216    ---@type iPixels Virtual Screen Height, in pixels
 
 WINDOW_WIDTH = 1280     ---@type iPixels Default Window Width, in pixels
 WINDOW_HEIGHT = 720     ---@type iPixels Default Window Height, in pixels

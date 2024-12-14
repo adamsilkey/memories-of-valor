@@ -125,6 +125,6 @@ Fonts = {
     [FONTS.LARGE] = love.graphics.newFont('assets/fonts/font.ttf', 32),
     [FONTS.GOTHIC_MEDIUM] = love.graphics.newFont('assets/fonts/GothicPixels.ttf', 16),
     [FONTS.GOTHIC_LARGE] = love.graphics.newFont('assets/fonts/GothicPixels.ttf', 32),
-    [FONTS.TITLE] = love.graphics.newFont('assets/fonts/zelda.otf', 64),
-    [FONTS.TITLE_SMALL] = love.graphics.newFont('assets/fonts/zelda.otf', 32)
+    [FONTS.TITLE] = love.graphics.newFont('assets/fonts/zelda.otf', 32),
+    [FONTS.TITLE_SMALL] = love.graphics.newFont('assets/fonts/zelda.otf', 16)
 }
