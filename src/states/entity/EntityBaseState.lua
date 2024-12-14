@@ -36,13 +36,15 @@ function EntityBaseState:render()
         x,
         y
     )
-    ---@DEBUG For showing the boundary of the graphics
-    love.graphics.setColor(255, 0, 255, 255)
-    love.graphics.rectangle('line', x, y, self.entity.width, self.entity.height)
-    love.graphics.setColor(255, 255, 255, 255)
+    if DEBUG_MODE then
+        ---@DEBUG For showing the boundary of the graphics
+        love.graphics.setColor(255, 0, 255, 255)
+        love.graphics.rectangle('line', x, y, self.entity.width, self.entity.height)
+        love.graphics.setColor(255, 255, 255, 255)
 
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.setFont(Fonts[FONTS.TITLE_SMALL])
-    love.graphics.printf('Grid: ('..self.entity.gridX..','..self.entity.gridY..')', 0, VIRTUAL_HEIGHT / 2 + 64, VIRTUAL_WIDTH, 'center')
-    love.graphics.printf('POS: ('..x..','..y..')', 0, VIRTUAL_HEIGHT / 2 + 80, VIRTUAL_WIDTH, 'center')
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setFont(Fonts[FONTS.SMALL])
+        love.graphics.printf('Grid: ('..self.entity.gridX..','..self.entity.gridY..')', 0, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('POS: ('..x..','..y..')', 0, VIRTUAL_HEIGHT - 10, VIRTUAL_WIDTH, 'center')
+    end
 end

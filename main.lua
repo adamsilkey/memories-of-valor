@@ -9,8 +9,9 @@
 
 require "src/Dependencies"
 
+DEBUG_MODE = false
+
 function love.load()
-    print("Hello?")
     math.randomseed(os.time())
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Memories of Valor')
@@ -66,6 +67,12 @@ function love.keypressed(key)
         ---@TODO gonna want to implement the state stack stuff here
         love.event.quit()
     end
+
+    if key == KEYS.F1 then
+        DEBUG_MODE = not DEBUG_MODE
+        print("Debug mode is now: " .. (DEBUG_MODE and "ON" or "OFF"))
+    end
+
 
     love.keyboard.keysPressed[key] = true
 end

@@ -77,6 +77,9 @@ KEYS = {
     F = 'f',
     P = 'p',
     S = 's',
+
+    --- Function Keys
+    F1 = 'f1',
 }
 
 ---

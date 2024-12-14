@@ -65,6 +65,19 @@ function Cursor:render()
             1
         )
     end
+
+    if DEBUG_MODE then
+        ---@DEBUG Shows cursor stats
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setFont(Fonts[FONTS.SMALL])
+        love.graphics.printf('Cursor: ('..self.tileX..','..self.tileY..')', 0, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH, 'left')
+
+        local pos = 'MOUSE: [off screen]'
+        if mouse.x ~= nil and mouse.y ~= nil then
+            pos = 'MOUSE: ('..mouse.x..','..mouse.y..')'
+        end
+        love.graphics.printf(pos, 0, VIRTUAL_HEIGHT - 10, VIRTUAL_WIDTH, 'left')
+    end
 end
 
 --[[
