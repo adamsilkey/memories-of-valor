@@ -14,8 +14,12 @@ PlayState = Class{__includes = BaseState}
 PlayState.NAME = 'BattleMap'
 
 function PlayState:init()
-    -- ---@type Level
-    -- self.level = Level()
+    --- First time we initialize the PlayState, we need to initialize the first level
+    --- This is hardcoded to just the first and only battle currently int he game, but could/should be
+    --- expanded in the future
+
+    ---@type Level
+    self.level = Level(MapDefs.Battle01)
 
     -- gSounds[SOUNDS.MUSIC.FIELD]:setLooping(true)
     -- gSounds[SOUNDS.MUSIC.FIELD]:play()
@@ -67,9 +71,9 @@ function PlayState:update(dt)
         end
     end
 
-    -- self.level:update(dt)
+    self.level:update(dt)
 end
 
 function PlayState:render()
-    -- self.level:render()
+    self.level:render()
 end

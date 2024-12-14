@@ -21,10 +21,13 @@ Timer = require 'lib/knife.timer'
 
 require 'src/Constants'
 
-require 'src/Tile'
 require 'src/StateMachine'
 require 'src/Util'
 
+require 'src/world/Level'
+require 'src/world/Tile'
+require 'src/world/TileMap'
+require 'src/world/TileMapDef'
 
 ---
 --- STATES ---------------------------------------------------------------------
@@ -68,8 +71,13 @@ STATES = {
 --- MAPS -----------------------------------------------------------------------
 ---
 
-MapTileset = require 'maps/WorldTileset'
-MapBattleO1 = require 'maps/Battle01'
+WorldTilesetDef = require 'maps/WorldTileset'
+
+---@class Namespace for holding Map Defs
+MapDefs = {
+    ---@type TileMapDef
+    Battle01 = require 'maps/Battle01',
+}
 
 
 ---
@@ -109,6 +117,10 @@ Textures = {
 Frames = {
     [GFX.TILES.WORLD] = GenerateQuads(Textures[GFX.TILES.WORLD], TILE_SIZE, TILE_SIZE),
 }
+
+-- for i, v in ipairs(Frames[GFX.TILES.WORLD]) do
+--     print(i, v)
+-- end
 
 
 ---

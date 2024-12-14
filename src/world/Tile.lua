@@ -31,10 +31,14 @@ end
 -- This is hardcoded for right now to go to the default World Tileset,
 -- but we should be dynamically loading this in the future
 function Tile:render()
-    love.graphics.draw(
-        Textures[GFX.TILES.WORLD],
-        Frames[GFX.TILES.WORLD][self.id],
-        (self.x - 1) * TILE_SIZE,
-        (self.y - 1) * TILE_SIZE
-    )
+    --- Tiled uses Tile ID 0 for tiles that are 'empty', so we just won't
+    --- render those
+    if self.id ~= 0 then
+        love.graphics.draw(
+            Textures[GFX.TILES.WORLD],
+            Frames[GFX.TILES.WORLD][self.id],
+            (self.x - 1) * TILE_SIZE,
+            (self.y - 1) * TILE_SIZE
+        )
+    end
 end
