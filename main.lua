@@ -26,6 +26,15 @@ function love.load()
         }
     )
 
+    -- this time, we are using a stack for all of our states, where the field state is the
+    -- foundational state; it will have its behavior preserved between state changes because
+    -- it is essentially being placed "behind" other running states as needed (like the battle
+    -- state)
+
+    ---@type StateStack
+    StateStack = StateStack()
+    StateStack:push(StartState())
+
     ---@type {[KEYS]: true}
     love.keyboard.keysPressed = {}
 end
