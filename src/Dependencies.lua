@@ -21,6 +21,7 @@ Timer = require 'lib/knife.timer'
 
 require 'src/Constants'
 
+require 'src/Tile'
 require 'src/StateMachine'
 require 'src/Util'
 
