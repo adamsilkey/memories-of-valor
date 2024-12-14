@@ -1,5 +1,6 @@
 *.DS_Store
 
 assets/unused
+utilities/output
 
 memories-of-valor.tiled-session
