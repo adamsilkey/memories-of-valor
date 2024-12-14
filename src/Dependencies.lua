@@ -51,6 +51,7 @@ require 'src/world/TileMapDef'
 require 'src/states/BaseState'
 require 'src/states/StateStack'
 
+require 'src/states/entity/EntityBaseState'
 require 'src/states/entity/EntityIdleState'
 require 'src/states/game/FadeInState'
 require 'src/states/game/PlayState'
@@ -60,6 +61,7 @@ require 'src/states/game/StartState'
 STATES = {
     BASE = BaseState.NAME,
 
+    ENTITY_BASE_STATE = EntityBaseState.NAME,
     ENTITY_IDLE_STATE = EntityIdleState.NAME,
 
     --- Game States
@@ -71,6 +73,7 @@ STATES = {
 --- Registered States
 ---@alias State
 ---| BaseState
+---| EntityBaseState
 ---| EntityIdleState
 ---| FadeInState
 ---| PlayState

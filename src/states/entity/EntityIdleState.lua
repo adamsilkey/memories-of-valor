@@ -8,7 +8,7 @@
 ]]
 
 ---@class EntityIdleState: BaseState
-EntityIdleState = Class{__includes = BaseState}
+EntityIdleState = Class{__includes = EntityBaseState}
 
 EntityIdleState.NAME = 'EntityIdleState'
 
@@ -41,23 +41,3 @@ end
 --         end
 --     end
 -- end
-
-function EntityIdleState:render()
-    -- alias to current animation
-    local anim = self.entity.currentAnimation
-    -- Set offsets
-    local x = math.floor(self.entity.x - self.entity.offsetX)
-    local y = math.floor(self.entity.y - self.entity.offsetY)
-
-    -- Draw Animation
-    love.graphics.draw(
-        Textures[anim.texture],
-        Frames[anim.texture][anim:getCurrentFrame()],
-        x,
-        y
-    )
-    ---@DEBUG For showing the boundary of the graphics
-    love.graphics.setColor(255, 0, 255, 255)
-    love.graphics.rectangle('line', x, y, self.entity.width, self.entity.height)
-    love.graphics.setColor(255, 255, 255, 255)
-end
