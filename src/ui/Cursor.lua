@@ -25,6 +25,8 @@ function Cursor:init(level)
 
     ---@type seconds Track how long it's been since the cursor has moved from keyboard
     self.keyholdTimer = 0
+    ---@type boolean Enables us to only fire one event on interaction with the cursor
+    self.cursorPressed = false
 
     ---@type RGB cursor color
     self.color = {
@@ -48,23 +50,33 @@ function Cursor:update(dt)
     ---@type seconds
     self.keyholdTimer = self.keyholdTimer + dt
 
-    -- CURSOR MOVEMENT
 
-    -- Keyboard controls
-    self:handleKeyboard()
-    -- Mouse controls
-    if love.mouse.wasMoved then
-        self:handleMouse()
-    end
+    if self.canInput then
+        -- CURSOR MOVEMENT
+        -- Keyboard controls
+        self:handleKeyboard()
+        -- Mouse controls
+        if love.mouse.wasMoved then
+            self:handleMouse()
+        end
 
-    -- CURSOR SELECTION
-    -- if we've pressed enter or used the mouse...
-    if self.canInput and (
-        love.keyboard.wasPressed(KEYS.ENTER) or
-        love.keyboard.wasPressed(KEYS.RETURN) or
-        love.mouse.wasPressed(1)) then
+        -- CURSOR SELECTION
+        -- if we've pressed enter or used the mouse...
+        if not self.cursorPressed and
+            (love.keyboard.wasPressed(KEYS.ENTER) or
+            love.keyboard.wasPressed(KEYS.RETURN) or
+            love.mouse.wasPressed(1)) then
 
-        Event.dispatch(EVENTS.CURSOR_SELECT, self.tileX, self.tileY)
+            Event.dispatch(EVENTS.CURSOR_SELECT, self.tileX, self.tileY)
+            self.cursorPressed = true
+        end
+        if self.cursorPressed and
+            (love.keyboard.wasReleased(KEYS.ENTER) or
+            love.keyboard.wasReleased(KEYS.RETURN) or
+            love.mouse.wasReleased(1)) then
+
+            self.cursorPressed = false
+        end
     end
 
     --     local newX = self.tileX

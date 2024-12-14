@@ -51,10 +51,10 @@ function love.load()
     love.keyboard.keysReleased = {}
 
     --- Tracks which Mouse Buttons have been pressed
-    love.mouse.buttonPressed = {}
+    love.mouse.buttonsPressed = {}
 
     --- Tracks which Mouse Buttons have been released
-    love.mouse.buttonReleased = {}
+    love.mouse.buttonsReleased = {}
 
     ---@type boolean Tracks whether the mouse has been moved
     love.mouse.wasMoved = false
@@ -130,23 +130,23 @@ end
 function love.mousepressed(x, y, button)
     ---@TODO could probably have this tfack the location that the mopuse was pressed
 
-    love.mouse.buttonPressed[button] = true
+    love.mouse.buttonsPressed[button] = true
 end
 
 function love.mouse.wasPressed(button)
-    if love.mouse.buttonPressed[button] then
+    if love.mouse.buttonsPressed[button] then
         return true
     else
         return false
     end
 end
 
-function love.mouse.mousereleased(x, y, button)
-    love.mouse.buttonReleased[button] = true
+function love.mousereleased(x, y, button)
+    love.mouse.buttonsReleased[button] = true
 end
 
-function love.mouse.wasReleased(key)
-    return love.mouse.buttonReleased[key]
+function love.mouse.wasReleased(button)
+    return love.mouse.buttonsReleased[button]
 end
 
 function love.update(dt)
@@ -161,8 +161,8 @@ function love.update(dt)
     -- Reset all input tables/flags
     love.keyboard.keysPressed = {}
     love.keyboard.keysReleased = {}
-    love.mouse.buttonPressed = {}
-    love.mouse.buttonReleased = {}
+    love.mouse.buttonsPressed = {}
+    love.mouse.buttonsReleased = {}
     love.mouse.wasMoved = false
 end
 
