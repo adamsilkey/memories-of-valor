@@ -39,7 +39,9 @@ function StateStack:top()
     return self.states[#self.states]
 end
 
+---@param state State
 function StateStack:push(state)
+    print("Pushing State ".. state.NAME)
     table.insert(self.states, state)
     state:enter()
 end

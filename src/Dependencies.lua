@@ -60,6 +60,7 @@ require 'src/states/StateStack'
 require 'src/states/entity/EntityBaseState'
 require 'src/states/entity/EntityIdleState'
 require 'src/states/entity/EntityWalkState'
+require 'src/states/game/BattleState'
 require 'src/states/game/HeroSelectState'
 require 'src/states/game/FadeInState'
 require 'src/states/game/PlayState'
@@ -75,6 +76,7 @@ STATES = {
     ENTITY_WALK = EntityWalkState.NAME,
 
     --- Game States
+    BATTLE = BattleState.NAME,
     CHARACTER_SELECT = HeroSelectState.NAME,
     FADE_IN = FadeInState.NAME,
     PLAY = PlayState.NAME,
@@ -87,6 +89,7 @@ STATES = {
 ---| EntityBaseState
 ---| EntityIdleState
 ---| EntityWalkState
+---| BattleState
 ---| HeroSelectState
 ---| FadeInState
 ---| PlayState

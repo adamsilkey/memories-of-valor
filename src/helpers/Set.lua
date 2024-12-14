@@ -1,6 +1,5 @@
 --[[
-    GD50
-    Match-3 Remake
+    Memories of Valor
 
     -- Set Class --
 

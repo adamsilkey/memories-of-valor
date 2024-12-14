@@ -32,21 +32,6 @@ function Level:init(tilemapDef)
     self.entities = {}
 
     self:addGoodGuys()
-
-
-    --------------
-    --- Events ---
-    --------------
-
-    --- Cursor Events
-    Event.on(EVENTS.CURSOR_SELECT, function(x, y)
-        for i, entity in ipairs(self.entities) do
-            if entity.gridX == x and entity.gridY == y then
-                print("We clicked on ".. entity.name)
-                StateStack:push(HeroSelectState(self))
-            end
-        end
-    end)
 end
 
 
@@ -68,7 +53,6 @@ function Level:update(dt)
         entity:update(dt)
     end
     self.cursor:update(dt)
-
 end
 
 function Level:render()
