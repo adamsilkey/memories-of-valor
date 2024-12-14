@@ -43,6 +43,7 @@ function Level:init(tilemapDef)
         for i, entity in ipairs(self.entities) do
             if entity.gridX == x and entity.gridY == y then
                 print("We clicked on ".. entity.name)
+                StateStack:push(HeroSelectState(self))
             end
         end
     end)
@@ -54,9 +55,9 @@ function Level:addGoodGuys()
     ---@type Entity
     local swordHero = Entity(heroDef, 2, 2)
     swordHero.stateMachine = StateMachine {
-        [STATES.ENTITY_IDLE_STATE] = function() return EntityIdleState(swordHero) end,
+        [STATES.ENTITY_IDLE] = function() return EntityIdleState(swordHero) end,
     }
-    swordHero:changeState(STATES.ENTITY_IDLE_STATE)
+    swordHero:changeState(STATES.ENTITY_IDLE)
 
     table.insert(self.entities, swordHero)
 end
