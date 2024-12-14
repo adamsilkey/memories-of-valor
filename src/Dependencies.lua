@@ -41,6 +41,7 @@ require 'src/Util'
 require 'src/states/BaseState'
 require 'src/states/StateStack'
 
+require 'src/states/game/PlayState'
 require 'src/states/game/FadeInState'
 require 'src/states/game/StartState'
 
@@ -50,6 +51,7 @@ STATES = {
 
     --- Game States
     FADE_IN = FadeInState.NAME,
+    PLAY = PlayState.NAME,
     START = StartState.NAME,
 }
 
@@ -57,6 +59,7 @@ STATES = {
 ---@alias State
 ---| BaseState
 ---| FadeInState
+---| PlayState
 ---| StartState
 
 

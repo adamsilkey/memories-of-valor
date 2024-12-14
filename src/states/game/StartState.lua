@@ -4,8 +4,6 @@
     Author: Adam Silkey
     Email: Adam.Silkey@gmail.com
 
-    Strategy RPG Game, made for GD50 Final Project
-
 	Code adapted from Colton Ogden's GD50 code
 ]]
 
@@ -25,7 +23,7 @@ function StartState:update(dt)
         }, 1,
         function ()
             StateStack:pop()
-            StateStack:push(StartState())
+            StateStack:push(PlayState())
         end))
     end
     --     gStateMachine:change('play')
