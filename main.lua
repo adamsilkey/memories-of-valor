@@ -50,7 +50,11 @@ function love.load()
     ---@type {[KEYS]: true} Tracks which keys have been released
     love.keyboard.keysReleased = {}
 
+    --- Tracks which Mouse Buttons have been pressed
     love.mouse.buttonPressed = {}
+
+    --- Tracks which Mouse Buttons have been released
+    love.mouse.buttonReleased = {}
 
     ---@type boolean Tracks whether the mouse has been moved
     love.mouse.wasMoved = false
@@ -100,6 +104,10 @@ function love.keyreleased(key)
     love.keyboard.keysReleased[key] = true
 end
 
+function love.keyboard.wasReleased(key)
+    return love.keyboard.keysReleased[key]
+end
+
 --[[
     Special function that returns if any one of an array of keys was pressed
 ]]
@@ -133,6 +141,13 @@ function love.mouse.wasPressed(button)
     end
 end
 
+function love.mouse.mousereleased(x, y, button)
+    love.mouse.buttonReleased[button] = true
+end
+
+function love.mouse.wasReleased(key)
+    return love.mouse.buttonReleased[key]
+end
 
 function love.update(dt)
 
@@ -147,6 +162,7 @@ function love.update(dt)
     love.keyboard.keysPressed = {}
     love.keyboard.keysReleased = {}
     love.mouse.buttonPressed = {}
+    love.mouse.buttonReleased = {}
     love.mouse.wasMoved = false
 end
 
