@@ -37,15 +37,13 @@ end
 
 function Cursor:update(dt)
 
-    ---@type seconds Threshhold between moving the cursor
-    local DELAY_THRESHOLD = 0.05
-
+    --- Timer that tracks the amount of time passed since a handleKeyboard()
+    --- action was executed
+    ---@type seconds
     self.keyholdTimer = self.keyholdTimer + dt
 
-    -- Move cursor around
-    if self.keyholdTimer >= DELAY_THRESHOLD then
-        self:handleKeyboard()
-    end
+    -- Keyboard controls
+    self:handleKeyboard()
 
     -- Mouse controls
     if love.mouse.wasMoved then
@@ -93,28 +91,45 @@ function Cursor:handleMouse()
 end
 
 --[[
+    Hanldes keyboard input and gracefully handling delays / repeated input
 ]]
 function Cursor:handleKeyboard()
-    if love.keyboard.isDown(KEYS.UP) then
-        self.tileY = math.max(0, self.tileY - 1)
-        self.keyholdTimer = 0
-    elseif love.keyboard.isDown(KEYS.DOWN) then
-        self.tileY = math.min(self.level.height - 1, self.tileY + 1)
-        self.keyholdTimer = 0
-    elseif love.keyboard.isDown(KEYS.LEFT) then
-        self.tileX = math.max(0, self.tileX - 1)
-        self.keyholdTimer = 0
-    elseif love.keyboard.isDown(KEYS.RIGHT) then
-        self.tileX = math.min(self.level.width - 1, self.tileX + 1)
+
+    ---@type seconds Threshhold between moving the cursor
+    local DELAY_THRESHOLD = 0.05
+
+    -- If we released a key, can reset the keyholdTimer to allow for players
+    -- to quickly go back and forth
+    if love.keyboard.anyReleased(
+        KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT
+    ) then
         self.keyholdTimer = 0
     end
 
-    if love.keyboard.wasPressed(KEYS.UP) or
-       love.keyboard.wasPressed(KEYS.DOWN) or
-       love.keyboard.wasPressed(KEYS.LEFT) or
-       love.keyboard.wasPressed(KEYS.RIGHT) then
-        -- If we have JUST pressed a key, then we want to actually delay the
-        -- keyhold timer a little more before starting to repeat
-        self.keyholdTimer = -0.2
+    -- Only repeat the action if the keyhold timer has gone above 0
+    if self.keyholdTimer >= 0 then
+        if love.keyboard.isDown(KEYS.UP) then
+            self.tileY = math.max(0, self.tileY - 1)
+            self.keyholdTimer = -DELAY_THRESHOLD
+        elseif love.keyboard.isDown(KEYS.DOWN) then
+            self.tileY = math.min(self.level.height - 1, self.tileY + 1)
+            self.keyholdTimer = -DELAY_THRESHOLD
+        elseif love.keyboard.isDown(KEYS.LEFT) then
+            self.tileX = math.max(0, self.tileX - 1)
+            self.keyholdTimer = -DELAY_THRESHOLD
+        elseif love.keyboard.isDown(KEYS.RIGHT) then
+            self.tileX = math.min(self.level.width - 1, self.tileX + 1)
+            self.keyholdTimer = -DELAY_THRESHOLD
+        end
+
+        -- If we _just_ hit a key, then let's add an extra delay, so that
+        -- input feels more precise and you don't get double tap/phantom hits
+        if love.keyboard.anyPressed(
+            KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT
+        ) then
+            -- If we have JUST pressed a key, then we want to actually delay the
+            -- keyhold timer a little more before starting to repeat
+            self.keyholdTimer = -0.25
+        end
     end
 end

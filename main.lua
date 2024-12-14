@@ -41,6 +41,9 @@ function love.load()
     ---@type {[KEYS]: true} Tracks which keys have been pressed
     love.keyboard.keysPressed = {}
 
+    ---@type {[KEYS]: true} Tracks which keys have been released
+    love.keyboard.keysReleased = {}
+
     love.mouse.buttonPressed = {}
 
     ---@type boolean Tracks whether the mouse has been moved
@@ -66,6 +69,38 @@ end
 function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
 end
+
+--[[
+    Special function that returns if any one of an array of keys was pressed
+]]
+function love.keyboard.anyPressed(...)
+    for i, key in ipairs({...}) do
+        if love.keyboard.keysPressed[key] then
+            return true
+        end
+    end
+
+    return false
+end
+
+-- Callback function for setting keysReleased
+function love.keyreleased(key)
+    love.keyboard.keysReleased[key] = true
+end
+
+--[[
+    Special function that returns if any one of an array of keys was pressed
+]]
+function love.keyboard.anyReleased(...)
+    for i, key in ipairs({...}) do
+        if love.keyboard.keysReleased[key] then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 -- Callback function for detecting mouse moves
 function love.mousemoved(x, y, dx, dy, istouch)
@@ -99,6 +134,7 @@ function love.update(dt)
 
     -- Reset all input tables/flags
     love.keyboard.keysPressed = {}
+    love.keyboard.keysReleased = {}
     love.mouse.buttonPressed = {}
     love.mouse.wasMoved = false
 end
