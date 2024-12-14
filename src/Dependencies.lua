@@ -20,3 +20,11 @@ Timer = require 'lib/knife.timer'
 ---
 
 require 'src/Constants'
+
+
+---
+--- MAPS -----------------------------------------------------------------------
+---
+
+MapTileset = require 'maps/MapTileset'
+MapBattleO1 = require 'maps/MapBattleO1'
