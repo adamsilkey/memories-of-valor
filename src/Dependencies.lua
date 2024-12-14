@@ -28,5 +28,38 @@ require 'src/Util'
 --- MAPS -----------------------------------------------------------------------
 ---
 
-MapTileset = require 'maps/MapTileset'
-MapBattleO1 = require 'maps/MapBattleO1'
+MapTileset = require 'maps/WorldTileset'
+MapBattleO1 = require 'maps/Battle01'
+
+
+---
+--- GRAPHICS CONSTANTS ---------------------------------------------------------
+---
+
+--- Add textures both here and in constants.lua
+
+---@class GFX Namespace for Graphics Constants
+GFX = {}
+
+---@enum GFX.TILES Namespace for tiles
+GFX.TILES = {
+    WORLD = 'world',
+}
+
+
+---
+--- TEXTURES -------------------------------------------------------------------
+---
+
+Textures = {
+    [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png')
+}
+
+
+---
+--- FRAMES ---------------------------------------------------------------------
+---
+
+Frames = {
+    [GFX.TILES.WORLD] = GenerateQuads(Textures[GFX.TILES.WORLD], TILE_SIZE, TILE_SIZE),
+}
