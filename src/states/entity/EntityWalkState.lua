@@ -54,6 +54,15 @@ function EntityWalkState:attemptMove()
         return
     end
 
+    -- If there's a rangeFinder window (i.e., we're doing normal movement)
+    -- Break out if we try to move outside of the RangeFinder coordinates
+    if self.level.rangeFinder ~= nil and not self.level.rangeFinder.tilesInRange:find(toX, toY) then
+        self.entity:changeState(STATES.ENTITY_IDLE)
+        self.entity:changeAnimation(ANIMATIONS.IDLE_BASE .. tostring(self.entity.direction))
+        return
+    end
+
+
     -- Since we are moving between grid spots, we tween the X/Y position of our sprite
     -- over a short time period
     Timer.tween(0.15, {

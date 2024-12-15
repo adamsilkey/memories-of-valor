@@ -47,7 +47,7 @@ function RangeFinder:init(def)
     assert(self.startY ~= nil, 'startY nil')
 
     ---@type Coordinates
-    self.pointsToHighlight = self:bfs()
+    self.tilesInRange = self:bfs()
 
     ---@type { [GFX.UI]: Animation}
     self.animations = Animation.createAnimations(RangeFinder.AnimationDefs)
@@ -67,7 +67,7 @@ end
 
 function RangeFinder:render()
     --- Render the blue grid
-    for tileX, tileY in self.pointsToHighlight:values() do
+    for tileX, tileY in self.tilesInRange:values() do
         -- Convert x, y to POS
         local x, y = (tileX - 1) * TILE_SIZE, (tileY - 1) * TILE_SIZE
         love.graphics.draw( -- drawable,x,y,r,sx,sy,ox,oy
