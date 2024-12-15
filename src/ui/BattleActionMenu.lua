@@ -98,7 +98,7 @@ function BattleActionMenu:update(dt)
         self.currentPanel = self.DIRS.E
     elseif love.keyboard.isDown(KEYS.UP, KEYS.W) then
         self.currentPanel = self.DIRS.N
-    elseif love.keyboard.isDown(KEYS.DOWN, KEYS.D) then
+    elseif love.keyboard.isDown(KEYS.DOWN, KEYS.S) then
         self.currentPanel = self.DIRS.S
     end
 
