@@ -77,11 +77,13 @@ function Level:addGoodGuys()
         hero:changeState(STATES.ENTITY_IDLE)
 
         table.insert(self.entities, hero)
+        self.cursor.tileX, self.cursor.tileY = startVec.x, startVec.y
     end
 end
 
 function Level:addBadGuys()
     local badguys = {
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(3, 4)},
         {ENTITIES.ENEMIES.BANDIT_1, Vector(20, 4)},
         {ENTITIES.ENEMIES.BANDIT_1, Vector(19, 5)},
         {ENTITIES.ENEMIES.BANDIT_1, Vector(19, 3)},
