@@ -40,6 +40,7 @@ require 'src/defs/EntityDefs'
 require 'src/defs/IconDefs'
 
 require 'src/ui/Cursor'
+require 'src/ui/BattleActionMenu'
 require 'src/ui/Menu'
 require 'src/ui/Panel'
 require 'src/ui/RangeFinder'
