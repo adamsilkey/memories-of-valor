@@ -39,6 +39,7 @@ require 'src/helpers/Vector'
 require 'src/defs/EntityDefs'
 
 require 'src/ui/Cursor'
+require 'src/ui/Panel'
 require 'src/ui/RangeFinder'
 
 require 'src/world/Level'
