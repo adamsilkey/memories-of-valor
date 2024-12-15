@@ -20,8 +20,6 @@
 ---@param tileheight iPixels Tile height in pixels (0-based, row)
 ---@return love.Quad[] spritesheet Array of Quads for spritesheet
 function GenerateQuads(atlas, tilewidth, tileheight)
-    print('tilewidth = '.. tilewidth)
-    print('tilewidth = '.. tileheight)
     local sheetWidth = atlas:getWidth() / tilewidth
     local sheetHeight = atlas:getHeight() / tileheight
 

@@ -86,7 +86,6 @@ function Animation:init(name, def)
     if self.reverse == nil then
         self.reverse = false
     end
-    print(self.reverse)
     -- Flag to determine if animation should loop or not, defaults to true
     self.looping = def.looping
     if self.looping == nil then
