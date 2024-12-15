@@ -35,6 +35,7 @@ function Level:init(tilemapDef)
     self.entities = {}
 
     self:addGoodGuys()
+    self:addBadGuys()
 
 end
 
@@ -59,6 +60,35 @@ function Level:addGoodGuys()
         table.insert(self.entities, hero)
     end
 end
+
+function Level:addBadGuys()
+    local badguys = {
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(20, 4)},
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(19, 5)},
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(19, 3)},
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(18, 3)},
+        {ENTITIES.ENEMIES.BANDIT_1, Vector(21, 4)},
+    }
+
+    for i, badguyTbl in ipairs(badguys) do
+        local badguyString = badguyTbl[1]
+        local startVec = badguyTbl[2]
+
+        print('adding StartVec: ', Vector.cString(startVec.x, startVec.y))
+        local badguyDef = ENTITY_DEFS[badguyString]
+        ---@type Entity
+        local badguy = Entity(badguyDef, startVec.x, startVec.y)
+        badguy.stateMachine = StateMachine {
+            [STATES.ENTITY_IDLE] = function() return EntityIdleState(badguy) end,
+            [STATES.ENTITY_WALK] = function() return EntityWalkState(badguy, self) end,
+        }
+        badguy:changeState(STATES.ENTITY_IDLE)
+
+        table.insert(self.entities, badguy)
+    end
+end
+
+
 
 function Level:update(dt)
     -- self.player:update(dt)
