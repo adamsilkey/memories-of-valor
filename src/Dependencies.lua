@@ -42,6 +42,7 @@ require 'src/defs/IconDefs'
 require 'src/ui/Cursor'
 require 'src/ui/Panel'
 require 'src/ui/RangeFinder'
+require 'src/ui/Selection'
 
 require 'src/world/Level'
 require 'src/world/Tile'
