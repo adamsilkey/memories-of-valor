@@ -75,10 +75,6 @@ function HeroSelectState:update(dt)
     self.level:update(dt)
 end
 
-function HeroSelectState:render()
-    self.level:render()
-end
-
 function HeroSelectState:enter(params)
 
     --- Disable GameQuit in this State

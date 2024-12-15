@@ -54,6 +54,5 @@ function MenuBattleActionState:update(dt)
 end
 
 function MenuBattleActionState:render()
-    self.level:render()
     self.menu:render()
 end
