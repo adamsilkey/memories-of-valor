@@ -67,10 +67,17 @@ require 'src/world/TileMapDef'
 require 'src/states/BaseState'
 require 'src/states/StateStack'
 
+--- Entities
 require 'src/states/entity/EntityBaseState'
 require 'src/states/entity/EntityAutoWalkState'
 require 'src/states/entity/EntityIdleState'
 require 'src/states/entity/EntityWalkState'
+
+--- Menus
+require 'src/states/menus/MenuBaseState'
+require 'src/states/menus/MenuBattleActionState'
+
+--- Game
 require 'src/states/game/BattleState'
 require 'src/states/game/HeroSelectState'
 require 'src/states/game/FadeInState'
@@ -87,6 +94,10 @@ STATES = {
     ENTITY_IDLE = EntityIdleState.NAME,
     ENTITY_WALK = EntityWalkState.NAME,
 
+    --- Menu States
+    MENU_BASE = MenuBaseState.NAME,
+    MENU_BATTLE_ACTION = MenuBattleActionState.NAME,
+
     --- Game States
     BATTLE = BattleState.NAME,
     CHARACTER_SELECT = HeroSelectState.NAME,
@@ -102,6 +113,7 @@ STATES = {
 ---| EntityAutoWalkState
 ---| EntityIdleState
 ---| EntityWalkState
+---| MenuBaseState
 ---| BattleState
 ---| HeroSelectState
 ---| FadeInState

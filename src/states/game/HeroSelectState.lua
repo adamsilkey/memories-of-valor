@@ -52,6 +52,11 @@ function HeroSelectState:update(dt)
             or love.mouse.wasPressed(1)
         ) then
             print("Enter a menu, dude!")
+            StateStack:push(MenuBattleActionState(
+                self.level,
+                self.selectedEntity,
+                function() end)
+            )
         elseif love.keyboard.wasPressed(KEYS.ESCAPE) then
             -- Disable control of Hero
             self.selectedEntity.controllable = false
