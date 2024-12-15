@@ -42,6 +42,7 @@ WINDOW_HEIGHT = 720     ---@type iPixels Default Window Height, in pixels
 
 TILE_SIZE = 16          ---@type iPixels Tile Size
 ACTOR_SIZE = 32         ---@type iPixels Tile Size of Actors
+ICON_SIZE = 32          ---@type iPixels Tile Size of Icons
 
 
 ---
@@ -71,6 +72,7 @@ GFX.BACKGROUNDS = {
 
 ---@enum GFX.UI Namespace for UI
 GFX.UI = {
+    ICONS = 'Icons',
     RANGE_FINDER_BLUE_50 = 'RangeFinderBlue50',
     RANGE_FINDER_BLUE_FULL = 'RangeFinderBlueFull',
     RANGE_FINDER_GREEN_50 = 'RangeFinderGreen50',
