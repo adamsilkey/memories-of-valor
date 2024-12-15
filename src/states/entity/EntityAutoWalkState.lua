@@ -143,11 +143,15 @@ function EntityAutoWalkState:createTimers(autoMovePath, endX, endY)
     --- Create the 'final' timer, which will ensure we land up where we
     --- need to be with a facing
     Timer.after(#autoMovePath * ENTITY_MOVE_TIME, function()
+        -- Ensure entity and cursor are all at the final location they
+        -- need to be
+        self.entity.gridX = endX
+        self.entity.gridY = endY
+        self.level.cursor.tileX = endX
+        self.level.cursor.tileY = endY
         -- Revert to Idle State
         self.entity.direction = DIRS.DOWN
         self.entity:changeState(STATES.ENTITY_IDLE)
-        self.entity.gridX = endX
-        self.entity.gridY = endY
     end)
 end
 
@@ -170,6 +174,10 @@ function EntityAutoWalkState:doTheWalk(step, def)
             [self.entity] = {
                 x = math.floor((toX - 1) * TILE_SIZE),
                 y = math.floor((toY - 1) * TILE_SIZE),
+            },
+            [self.level.cursor] = {
+                tileX = toX,
+                tileY = toY,
             }
         })
     end)
