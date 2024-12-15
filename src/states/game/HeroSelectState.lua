@@ -44,6 +44,8 @@ function HeroSelectState:update(dt)
         if love.keyboard.wasPressed(KEYS.ENTER) or love.keyboard.wasPressed(KEYS.RETURN)
             or love.mouse.wasPressed(1) then
             StateStack:pop()
+        elseif love.keyboard.wasPressed(KEYS.ESCAPE) then
+            StateStack:pop()
         end
     end
 
@@ -54,7 +56,7 @@ function HeroSelectState:render()
     self.level:render()
 end
 
-function HeroSelectState:enter()
+function HeroSelectState:enter(params)
 
     --- Disable GameQuit in this State
     Game.CAN_QUIT = false
