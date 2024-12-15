@@ -58,20 +58,23 @@ function Animation.createAnimations(defs)
     local animations = {}
 
     for name, def in pairs(defs) do
-        animations[name] = Animation {
+        animations[name] = Animation (name, {
             texture = def.texture,
             frames = def.frames,
             interval = def.interval,
             reverse = def.reverse,
             looping = def.looping,
-        }
+        })
     end
 
     return animations
 end
 
+---@param name ANIMATIONS | GFX.UI
 ---@param def AnimationDef
-function Animation:init(def)
+function Animation:init(name, def)
+    -- Name of Animation. Handy to refer to
+    self.name = name
     -- Array of frame IDs (Quads)
     self.frames = def.frames
     -- Interval between animation frames, in seconds

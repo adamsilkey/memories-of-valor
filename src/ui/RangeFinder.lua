@@ -29,6 +29,27 @@ RangeFinder.AnimationDefs = {
         interval = 0.05,
         texture = GFX.UI.RANGE_FINDER_BLUE_50,
     },
+    [GFX.UI.RANGE_FINDER_BLUE_FULL] = {
+        frames = {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        },
+        interval = 0.05,
+        texture = GFX.UI.RANGE_FINDER_BLUE_FULL,
+    },
+    [GFX.UI.RANGE_FINDER_RED_50] = {
+        frames = {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        },
+        interval = 0.05,
+        texture = GFX.UI.RANGE_FINDER_RED_50,
+    },
+    [GFX.UI.RANGE_FINDER_RED_FULL] = {
+        frames = {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        },
+        interval = 0.05,
+        texture = GFX.UI.RANGE_FINDER_RED_FULL,
+    },
 }
 
 ---@param def RangeFinderDef
@@ -52,7 +73,7 @@ function RangeFinder:init(def)
     ---@type { [GFX.UI]: Animation}
     self.animations = Animation.createAnimations(RangeFinder.AnimationDefs)
 
-    self.blueGridAnim = self.animations[GFX.UI.RANGE_FINDER_BLUE_50]
+    self.currentAnimation = self.animations[GFX.UI.RANGE_FINDER_BLUE_FULL]
 
     ---@TODO Remove dead code
     -- print("Letsa go")
@@ -62,17 +83,18 @@ function RangeFinder:init(def)
 end
 
 function RangeFinder:update(dt)
-    self.blueGridAnim:update(dt)
+    self.currentAnimation:update(dt)
 end
 
 function RangeFinder:render()
-    --- Render the blue grid
+    local anim = self.currentAnimation
+    --- Render the range finder grid
     for tileX, tileY in self.tilesInRange:values() do
         -- Convert x, y to POS
         local x, y = (tileX - 1) * TILE_SIZE, (tileY - 1) * TILE_SIZE
         love.graphics.draw( -- drawable,x,y,r,sx,sy,ox,oy
-            Textures[GFX.UI.RANGE_FINDER_BLUE_50],
-            Frames[GFX.UI.RANGE_FINDER_BLUE_50][self.blueGridAnim:getCurrentFrame()],
+            Textures[anim.name],
+            Frames[anim.name][self.currentAnimation:getCurrentFrame()],
             x,
             y
         )
