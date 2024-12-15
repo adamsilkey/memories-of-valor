@@ -42,28 +42,28 @@ function EntityBaseState:render()
         sy
     )
     if Game.DEBUG_MODE then
-        ---@DEBUG For showing the boundary of the graphics
-        love.graphics.setColor(255, 0, 255, 255)
-        love.graphics.rectangle(
-            'line',
-            x,
-            y,
-            self.entity.width,
-            self.entity.height
-        )
-        love.graphics.setColor(255, 255, 255, 255)
+        -- ---@DEBUG For showing the boundary of the graphics
+        -- love.graphics.setColor(255, 0, 255, 255)
+        -- love.graphics.rectangle(
+        --     'line',
+        --     x,
+        --     y,
+        --     self.entity.width,
+        --     self.entity.height
+        -- )
+        -- love.graphics.setColor(255, 255, 255, 255)
 
-        love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.setFont(Fonts[FONTS.SMALL])
-        local fontOffest = 10
+        -- love.graphics.setColor(1, 1, 1, 1)
+        -- love.graphics.setFont(Fonts[FONTS.SMALL])
+        -- local fontOffest = 10
 
-        local entityGridMsg = 'Grid: ('..self.entity.gridX..','..self.entity.gridY..')'
-        local entityPosMsg = 'POS: ('..x..','..y..')'
+        -- local entityGridMsg = 'Grid: ('..self.entity.gridX..','..self.entity.gridY..')'
+        -- local entityPosMsg = 'POS: ('..x..','..y..')'
 
-        local msgs = {entityPosMsg, entityGridMsg}
+        -- local msgs = {entityPosMsg, entityGridMsg}
 
-        for i, msg in ipairs(msgs) do
-            love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'center')
-        end
+        -- for i, msg in ipairs(msgs) do
+        --     love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'center')
+        -- end
     end
 end

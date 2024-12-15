@@ -24,7 +24,8 @@ function MenuBattleActionState:init(level, entity, onClose)
     self.entity = entity
 
     ---@TODO just stubbing in a panel for right now
-    self.panel = Panel(20, 20, 60, 60)
+    -- self.panel = Panel(20, 20, 60, 60)
+    self.menu = BattleActionMenu()
 
     ---@type function Callback function to execute onClose
     self.onClose = onClose or function () end
@@ -41,7 +42,7 @@ end
 function MenuBattleActionState:update(dt)
 
     self.level:update(dt)
-    self.panel:update(dt)
+    self.menu:update(dt)
 
     ---@TODO maybe use anypress here
     if love.keyboard.wasPressed(KEYS.ENTER)
@@ -55,5 +56,5 @@ end
 
 function MenuBattleActionState:render()
     self.level:render()
-    self.panel:render()
+    self.menu:render()
 end
