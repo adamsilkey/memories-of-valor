@@ -38,15 +38,36 @@ function BattleTargetSelectionState:init(level, entity)
 
     --- Insantiate a new cursor
     ---@type Cursor
-    self.cursor = Cursor()
+    self.cursor = Cursor(self.level)
+    self.cursor.tileX = self.entity.gridX
+    self.cursor.tileY = self.entity.gridY
+
+    --- Instantiate Event Handling
+    self.event = Event.on(EVENTS.CURSOR_SELECT, function (x, y)
+        if self == StateStack:top() then
+            if self.rangeFinder.tilesInRange:find(x, y) then
+                print('good! you attacked!')
+            else
+                -- Pop twice to go back to moving around in the
+                -- OG rangeFinder
+                StateStack:pop()
+                StateStack:pop()
+            end
+        end
+    end)
 end
 
 function BattleTargetSelectionState:update(dt)
     self.level:update(dt)
+    self.rangeFinder:update(dt)
+    self.cursor:update(dt)
 
     if love.keyboard.wasPressed(KEYS.ESCAPE) then
         StateStack:pop()
     end
+end
+
+function BattleTargetSelectionState:exit()
 end
 
 function BattleTargetSelectionState:render(dt)

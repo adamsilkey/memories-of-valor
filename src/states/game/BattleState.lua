@@ -39,15 +39,17 @@ function BattleState:init(level)
 
     --- Cursor Events
     Event.on(EVENTS.CURSOR_SELECT, function(x, y)
-        for i, entity in ipairs(self.level.entities) do
-            if entity.gridX == x and entity.gridY == y then
+        if self == StateStack:top() then
+            for i, entity in ipairs(self.level.entities) do
+                if entity.gridX == x and entity.gridY == y then
 
-                ---@type HeroSelectStateEnterDef
-                local def = {
-                    level = self.level,
-                    entity = entity,
-                }
-                StateStack:push(HeroSelectState(def))
+                    ---@type HeroSelectStateEnterDef
+                    local def = {
+                        level = self.level,
+                        entity = entity,
+                    }
+                    StateStack:push(HeroSelectState(def))
+                end
             end
         end
     end)
