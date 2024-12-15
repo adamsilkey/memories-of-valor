@@ -44,6 +44,7 @@ require 'src/ui/Menu'
 require 'src/ui/Panel'
 require 'src/ui/RangeFinder'
 require 'src/ui/Selection'
+require 'src/ui/Textbox'
 
 require 'src/world/Level'
 require 'src/world/Tile'
