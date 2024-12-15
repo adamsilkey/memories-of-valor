@@ -80,6 +80,7 @@ require 'src/states/menus/MenuBattleActionState'
 
 --- Game
 require 'src/states/game/BattleState'
+require 'src/states/game/BattleTargetSelectionState'
 require 'src/states/game/HeroSelectState'
 require 'src/states/game/FadeInState'
 require 'src/states/game/PlayState'
@@ -101,6 +102,7 @@ STATES = {
 
     --- Game States
     BATTLE = BattleState.NAME,
+    BATTLE_TARGET_SELECTION = BattleTargetSelectionState.NAME,
     CHARACTER_SELECT = HeroSelectState.NAME,
     FADE_IN = FadeInState.NAME,
     PLAY = PlayState.NAME,
@@ -116,6 +118,7 @@ STATES = {
 ---| EntityWalkState
 ---| MenuBaseState
 ---| BattleState
+---| BattleTargetSelectionState
 ---| HeroSelectState
 ---| FadeInState
 ---| PlayState
