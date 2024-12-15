@@ -37,6 +37,7 @@ require 'src/helpers/SparseArray'
 require 'src/helpers/Vector'
 
 require 'src/defs/EntityDefs'
+require 'src/defs/IconDefs'
 
 require 'src/ui/Cursor'
 require 'src/ui/Panel'
