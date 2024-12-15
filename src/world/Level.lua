@@ -40,16 +40,24 @@ end
 
 
 function Level:addGoodGuys()
-    local heroDef = ENTITY_DEFS[ENTITIES.HEROES.SWORD_1]
-    ---@type Entity
-    local swordHero = Entity(heroDef, 2, 2)
-    swordHero.stateMachine = StateMachine {
-        [STATES.ENTITY_IDLE] = function() return EntityIdleState(swordHero) end,
-        [STATES.ENTITY_WALK] = function() return EntityWalkState(swordHero, self) end,
+    ---@type {[string]: Vector }
+    local heroes = {
+        [ENTITIES.HEROES.SWORD_1] = Vector(3, 3),
+        [ENTITIES.HEROES.SPEAR_1] = Vector(2, 4),
     }
-    swordHero:changeState(STATES.ENTITY_IDLE)
 
-    table.insert(self.entities, swordHero)
+    for heroString, startVec in pairs(heroes) do
+        local heroDef = ENTITY_DEFS[heroString]
+        ---@type Entity
+        local hero = Entity(heroDef, startVec.x, startVec.y)
+        hero.stateMachine = StateMachine {
+            [STATES.ENTITY_IDLE] = function() return EntityIdleState(hero) end,
+            [STATES.ENTITY_WALK] = function() return EntityWalkState(hero, self) end,
+        }
+        hero:changeState(STATES.ENTITY_IDLE)
+
+        table.insert(self.entities, hero)
+    end
 end
 
 function Level:update(dt)

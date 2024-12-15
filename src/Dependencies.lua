@@ -119,6 +119,7 @@ MapDefs = {
 
 Textures = {
     [ENTITIES.HEROES.SWORD_1] = love.graphics.newImage('assets/actors/heroes/Sword1.png'),
+    [ENTITIES.HEROES.SPEAR_1] = love.graphics.newImage('assets/actors/heroes/Spear1.png'),
     [GFX.BACKGROUNDS.TITLE] = love.graphics.newImage('assets/backgrounds/title.png'),
     [GFX.UI.RANGE_FINDER_BLUE_50] = love.graphics.newImage('assets/ui/RangeFinderBlue50.png'),
     [GFX.UI.RANGE_FINDER_BLUE_FULL] = love.graphics.newImage('assets/ui/RangeFinderBlueFull.png'),
@@ -136,6 +137,7 @@ Textures = {
 
 Frames = {
     [ENTITIES.HEROES.SWORD_1] = GenerateQuads(Textures[ENTITIES.HEROES.SWORD_1], ACTOR_SIZE, ACTOR_SIZE),
+    [ENTITIES.HEROES.SPEAR_1] = GenerateQuads(Textures[ENTITIES.HEROES.SPEAR_1], ACTOR_SIZE, ACTOR_SIZE),
     [GFX.UI.RANGE_FINDER_BLUE_50] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_BLUE_50], TILE_SIZE, TILE_SIZE),
     [GFX.UI.RANGE_FINDER_BLUE_FULL] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_BLUE_FULL], TILE_SIZE, TILE_SIZE),
     [GFX.UI.RANGE_FINDER_GREEN_50] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_GREEN_50], TILE_SIZE, TILE_SIZE),
