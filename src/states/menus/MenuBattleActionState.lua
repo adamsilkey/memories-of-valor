@@ -25,7 +25,7 @@ function MenuBattleActionState:init(level, entity, onClose)
 
     ---@TODO just stubbing in a panel for right now
     -- self.panel = Panel(20, 20, 60, 60)
-    self.menu = BattleActionMenu()
+    self.menu = BattleActionMenu(level, entity)
 
     ---@type function Callback function to execute onClose
     self.onClose = onClose or function () end

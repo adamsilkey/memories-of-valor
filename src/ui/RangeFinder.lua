@@ -15,6 +15,9 @@ RangeFinder = Class{}
 ---@class RangeFinderDef
 ---@field level Level
 ---@field entity Entity
+---@field range? integer Range override
+---@field color? GFX.UI
+---@field centerColor? GFX.UI   Override a special color for the center
 
 ---
 --- ENTITY DEFS ----------------------------------------------------------------
@@ -57,7 +60,9 @@ function RangeFinder:init(def)
     self.level = def.level
     self.entity = def.entity
 
-    self.range = self.entity.stats.movement
+    self.range = def.range or self.entity.stats.movement
+    self.color = def.color or GFX.UI.RANGE_FINDER_BLUE_FULL
+    self.centerColor = def.centerColor or self.color
 
     ---@type tileX Origin point for the range finder
     self.startX = self.entity.gridX
@@ -73,7 +78,7 @@ function RangeFinder:init(def)
     ---@type { [GFX.UI]: Animation}
     self.animations = Animation.createAnimations(RangeFinder.AnimationDefs)
 
-    self.currentAnimation = self.animations[GFX.UI.RANGE_FINDER_BLUE_FULL]
+    self.currentAnimation = self.animations[self.color]
 
     ---@TODO Remove dead code
     -- print("Letsa go")
@@ -87,18 +92,29 @@ function RangeFinder:update(dt)
 end
 
 function RangeFinder:render()
-    local anim = self.currentAnimation
     --- Render the range finder grid
     for tileX, tileY in self.tilesInRange:values() do
-        -- Convert x, y to POS
-        local x, y = (tileX - 1) * TILE_SIZE, (tileY - 1) * TILE_SIZE
-        love.graphics.draw( -- drawable,x,y,r,sx,sy,ox,oy
-            Textures[anim.name],
-            Frames[anim.name][self.currentAnimation:getCurrentFrame()],
-            x,
-            y
-        )
+        self:drawTile(tileX, tileY)
     end
+
+    --- Re draw the center tile in case the color has been overriden
+    self:drawTile(self.startX, self.startY, self.centerColor)
+end
+
+---@param tileX tileX
+---@param tileY tileY
+---@param color? GFX.UI
+function RangeFinder:drawTile(tileX, tileY, color)
+    -- Get color if overridden
+    color = color or self.currentAnimation.name
+    -- Convert x, y to POS
+    local x, y = (tileX - 1) * TILE_SIZE, (tileY - 1) * TILE_SIZE
+    love.graphics.draw( -- drawable,x,y,r,sx,sy,ox,oy
+        Textures[color],
+        Frames[color][self.currentAnimation:getCurrentFrame()],
+        x,
+        y
+    )
 end
 
 ---comment

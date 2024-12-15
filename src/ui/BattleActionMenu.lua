@@ -26,7 +26,14 @@ BattleActionMenu.DIRS = {
     W = 'W',
 }
 
-function BattleActionMenu:init()
+---@param level Level
+---@param entity Entity
+function BattleActionMenu:init(level, entity)
+
+    ---@type Level
+    self.level = level
+    ---@type Entity
+    self.entity = entity
 
     -- Everything about the four panels generated below is dynamic to make
     -- a nice symmmetrical little window at the bottom of the screen
@@ -76,12 +83,15 @@ function BattleActionMenu:init()
 
     ---@type boolean Flag to tell us if a selection was pressed (so we don't send multiple events)
     self.selectionPressed = false
+
+    ---@type RangeFinder Custom RangeFinder for interaction()
+    self.rangeFinder = nil
+    ---@type Cursor Custom Cursor for interaction()
+    self.cursor = nil
 end
 
 function BattleActionMenu:interaction()
-    --- Insantiate a new cursor
-    --- Limit Cursor range to attack range (make it melee for now)
-    --- Selection on self
+    StateStack:push(BattleTargetSelectionState(self.level, self.entity))
 end
 
 function BattleActionMenu:stayhere()
