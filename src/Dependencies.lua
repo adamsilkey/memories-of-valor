@@ -15,6 +15,8 @@ Class = require 'lib/class'
 push = require 'lib/push'
 Event = require 'lib/knife.event'
 Timer = require 'lib/knife.timer'
+Grid = require 'lib/jumper.grid'
+Pathfinder = require 'lib/jumper.pathfinder'
 
 ---
 --- REQUIRES -------------------------------------------------------------------
