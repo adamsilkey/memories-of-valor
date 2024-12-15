@@ -13,6 +13,7 @@
 
 # Binary Files
 *.mp3             -text
+*.pdf             -text
 *.png             -text
 *.ttf             -text
 *.wav             -text
