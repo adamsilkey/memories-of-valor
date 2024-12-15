@@ -27,47 +27,50 @@ function EntityWalkState:enter(params)
 end
 
 function EntityWalkState:attemptMove()
-    self.entity:changeAnimation(Entity.STATES.WALK .. '-' .. tostring(self.entity.direction))
+    self.entity:changeAnimation(ANIMATIONS.WALK_BASE .. tostring(self.entity.direction))
 
-    local toX, toY = self.entity.mapX, self.entity.mapY
+    local toX, toY = self.entity.gridX, self.entity.gridY
 
-    if self.entity.direction == DIRECTIONS.LEFT then
+    if self.entity.direction == DIRS.LEFT then
         toX = toX - 1
-    elseif self.entity.direction == DIRECTIONS.RIGHT then
+    elseif self.entity.direction == DIRS.RIGHT then
         toX = toX + 1
-    elseif self.entity.direction == DIRECTIONS.UP then
+    elseif self.entity.direction == DIRS.UP then
         toY = toY - 1
-    else    -- DIRECTIONS.DOWN
+    else    -- DIRS.DOWN
         toY = toY + 1
     end
 
     -- break out if we try to move out of the map boundaries
-    if toX < 1 or toX > 24 or toY < 1 or toY > 13 then
-        self.entity:changeState(Entity.STATES.IDLE)
-        self.entity:changeAnimation(Entity.STATES.IDLE .. '-' .. tostring(self.entity.direction))
+    if toX < 1 or toX > self.level.width or toY < 1 or toY > self.level.height then
+        self.entity:changeState(STATES.ENTITY_IDLE)
+        self.entity:changeAnimation(ANIMATIONS.IDLE_BASE .. tostring(self.entity.direction))
         return
     end
 
-    self.entity.mapY = toY
-    self.entity.mapX = toX
+    self.entity.gridY = toY
+    self.entity.gridX = toX
 
-    Timer.tween(0.5, {
-        [self.entity] = {x = (toX - 1) * TILE_SIZE, y = (toY - 1) * TILE_SIZE - self.entity.height / 2}
+    Timer.tween(0.15, {
+        [self.entity] = {
+            x = (toX - 1) * TILE_SIZE,
+            y = (toY - 1) * TILE_SIZE,
+        }
     }):finish(function()
-        if love.keyboard.isDown(KEYS.LEFT) then
-            self.entity.direction = DIRECTIONS.LEFT
-            self.entity:changeState(Entity.STATES.WALK)
-        elseif love.keyboard.isDown(KEYS.LEFT) then
-            self.entity.direction = DIRECTIONS.RIGHT
-            self.entity:changeState(Entity.STATES.WALK)
-        elseif love.keyboard.isDown(KEYS.UP) then
-            self.entity.direction = DIRECTIONS.UP
-            self.entity:changeState(Entity.STATES.WALK)
-        elseif love.keyboard.isDown(KEYS.DOWN) then
-            self.entity.direction = DIRECTIONS.DOWN
-            self.entity:changeState(Entity.STATES.WALK)
+        if love.keyboard.isDown(KEYS.LEFT, KEYS.A) then
+            self.entity.direction = DIRS.LEFT
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.RIGHT, KEYS.D) then
+            self.entity.direction = DIRS.RIGHT
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.UP, KEYS.W) then
+            self.entity.direction = DIRS.UP
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.DOWN, KEYS.D) then
+            self.entity.direction = DIRS.DOWN
+            self.entity:changeState(STATES.ENTITY_WALK)
         else
-            self.entity:changeState(Entity.STATES.IDLE)
+            self.entity:changeState(STATES.ENTITY_IDLE)
         end
     end)
 end

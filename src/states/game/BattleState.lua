@@ -41,11 +41,20 @@ function BattleState:init(level)
     Event.on(EVENTS.CURSOR_SELECT, function(x, y)
         for i, entity in ipairs(self.level.entities) do
             if entity.gridX == x and entity.gridY == y then
-                print("We clicked on ".. entity.name)
-                StateStack:push(HeroSelectState(self.level, entity))
+
+                ---@type HeroSelectStateEnterDef
+                local def = {
+                    level = self.level,
+                    entity = entity,
+                }
+                StateStack:push(HeroSelectState(def))
             end
         end
     end)
+end
+
+function BattleState:enter()
+    self.level.cursor.enabled = true
 end
 
 function BattleState:update(dt)

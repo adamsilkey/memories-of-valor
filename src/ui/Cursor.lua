@@ -17,11 +17,13 @@ function Cursor:init(level)
     -- Reference to current Level()
     self.level = level
 
-    ---@type boolean Flag to determine if we should show the cursor or not
-    self.visible = true
+    ---@type boolean Flag to determine if cursor is currently enabled or not
+    self.enabled = true
+    -- ---@type boolean Flag to determine if we should show the cursor or not
+    -- self.visible = true
 
-    ---@type boolean Flag to determine if we can click
-    self.canInput = true
+    -- ---@type boolean Flag to determine if we can click
+    -- self.canInput = true
 
     ---@type seconds Track how long it's been since the cursor has moved from keyboard
     self.keyholdTimer = 0
@@ -51,7 +53,7 @@ function Cursor:update(dt)
     self.keyholdTimer = self.keyholdTimer + dt
 
 
-    if self.canInput then
+    if self.enabled then
         -- CURSOR MOVEMENT
         -- Keyboard controls
         self:handleKeyboard()
@@ -97,7 +99,7 @@ end
 
 function Cursor:render()
     -- Render cursor if visible
-    if self.visible then
+    if self.enabled then
 
         -- Render normal select
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
@@ -112,47 +114,32 @@ function Cursor:render()
             1
         )
 
-        -- -- Render selected tile
-        -- if self.selectedX ~= nil and self.selectedY ~= nil then
-        --     local bright = 1
-        --     love.graphics.setColor(bright, bright, bright, 1)
-        --     love.graphics.setLineWidth(1)
-        --     love.graphics.rectangle(
-        --         'line',
-        --         self.selectedX * TILE_SIZE,
-        --         self.selectedY * TILE_SIZE,
-        --         16,
-        --         16,
-        --         1
-        --     )
-        -- end
-    end
+        if DEBUG_MODE then
+            ---@DEBUG Shows cursor stats
+            love.graphics.setColor(1, 1, 1, 1)
+            love.graphics.setFont(Fonts[FONTS.SMALL])
 
-    if DEBUG_MODE then
-        ---@DEBUG Shows cursor stats
-        love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.setFont(Fonts[FONTS.SMALL])
+            local fontOffest = 10
 
-        local fontOffest = 10
+            local cursorMsg = 'Cursor: ('..self.tileX..','..self.tileY..')'
+            -- local selectedMsg = 'Selected: N/A'
+            -- if self.selectedX ~= nil and self.selectedY ~= nil then
+            --     selectedMsg  = 'Selected: ('..self.selectedX..','..self.selectedY..')'
+            -- end
+            local pos = 'MOUSE: [off screen]'
+            if mouse.x ~= nil and mouse.y ~= nil then
+                pos = 'MOUSE: ('..mouse.x..','..mouse.y..')'
+            end
 
-        local cursorMsg = 'Cursor: ('..self.tileX..','..self.tileY..')'
-        -- local selectedMsg = 'Selected: N/A'
-        -- if self.selectedX ~= nil and self.selectedY ~= nil then
-        --     selectedMsg  = 'Selected: ('..self.selectedX..','..self.selectedY..')'
-        -- end
-        local pos = 'MOUSE: [off screen]'
-        if mouse.x ~= nil and mouse.y ~= nil then
-            pos = 'MOUSE: ('..mouse.x..','..mouse.y..')'
-        end
+            local msgs = {
+                pos,
+                -- selectedMsg,
+                cursorMsg,
+            }
 
-        local msgs = {
-            pos,
-            -- selectedMsg,
-            cursorMsg,
-        }
-
-        for i, msg in ipairs(msgs) do
-            love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'left')
+            for i, msg in ipairs(msgs) do
+                love.graphics.printf(msg, 0, VIRTUAL_HEIGHT - fontOffest * i, VIRTUAL_WIDTH, 'left')
+            end
         end
     end
 end
@@ -191,23 +178,24 @@ function Cursor:handleKeyboard()
     -- If we released a key, can reset the keyholdTimer to allow for players
     -- to quickly go back and forth
     if love.keyboard.anyReleased(
-        KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT
+        KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT,
+        KEYS.W,  KEYS.S,    KEYS.A,    KEYS.D
     ) then
         self.keyholdTimer = 0
     end
 
     -- Only repeat the action if the keyhold timer has gone above 0
     if self.keyholdTimer >= 0 then
-        if love.keyboard.isDown(KEYS.UP) then
+        if love.keyboard.isDown(KEYS.UP, KEYS.W) then
             self.tileY = math.max(0, self.tileY - 1)
             self.keyholdTimer = -DELAY_THRESHOLD
-        elseif love.keyboard.isDown(KEYS.DOWN) then
+        elseif love.keyboard.isDown(KEYS.DOWN, KEYS.S) then
             self.tileY = math.min(self.level.height - 1, self.tileY + 1)
             self.keyholdTimer = -DELAY_THRESHOLD
-        elseif love.keyboard.isDown(KEYS.LEFT) then
+        elseif love.keyboard.isDown(KEYS.LEFT, KEYS.A) then
             self.tileX = math.max(0, self.tileX - 1)
             self.keyholdTimer = -DELAY_THRESHOLD
-        elseif love.keyboard.isDown(KEYS.RIGHT) then
+        elseif love.keyboard.isDown(KEYS.RIGHT, KEYS.D) then
             self.tileX = math.min(self.level.width - 1, self.tileX + 1)
             self.keyholdTimer = -DELAY_THRESHOLD
         end
@@ -215,7 +203,8 @@ function Cursor:handleKeyboard()
         -- If we _just_ hit a key, then let's add an extra delay, so that
         -- input feels more precise and you don't get double tap/phantom hits
         if love.keyboard.anyPressed(
-            KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT
+            KEYS.UP, KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT,
+            KEYS.W,  KEYS.S,    KEYS.A,    KEYS.D
         ) then
             -- If we have JUST pressed a key, then we want to actually delay the
             -- keyhold timer a little more before starting to repeat

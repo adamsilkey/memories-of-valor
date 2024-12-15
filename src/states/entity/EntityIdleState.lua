@@ -24,6 +24,24 @@ function EntityIdleState:init(entity)
     self.waitTimer = 0
 end
 
+function EntityIdleState:update(dt)
+    if self.entity.controllable then
+        if love.keyboard.isDown(KEYS.LEFT, KEYS.A) then
+            self.entity.direction = DIRS.LEFT
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.RIGHT, KEYS.D) then
+            self.entity.direction = DIRS.RIGHT
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.UP, KEYS.W) then
+            self.entity.direction = DIRS.UP
+            self.entity:changeState(STATES.ENTITY_WALK)
+        elseif love.keyboard.isDown(KEYS.DOWN, KEYS.S) then
+            self.entity.direction = DIRS.DOWN
+            self.entity:changeState(STATES.ENTITY_WALK)
+        end
+    end
+end
+
 -- --[[
 --     We can call this function if we want to use this state on an agent in our game; otherwise,
 --     we can use this same state in our Player class and have it not take action.

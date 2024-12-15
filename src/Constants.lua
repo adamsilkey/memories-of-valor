@@ -74,9 +74,12 @@ KEYS = {
     SPACE = 'space',
 
     --- Letters
+    A = 'a',
+    D = 'd',
     F = 'f',
     P = 'p',
     S = 's',
+    W = 'w',
 
     --- Function Keys
     F1 = 'f1',

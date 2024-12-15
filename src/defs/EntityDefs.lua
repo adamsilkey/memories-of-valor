@@ -76,7 +76,18 @@ ENTITY_DEFS = {
             AgilityIV = 2,
         },
         animations = {
-            [ANIMATIONS.IDLE_RIGHTLEFT] = {
+            [ANIMATIONS.IDLE_LEFT] = {
+                frames = {
+                    1,
+                    2,
+                    3,
+                    4,
+                },
+                interval = 0.15,
+                texture = ENTITIES.HEROES.SWORD_1,
+                reverse = true,
+            },
+            [ANIMATIONS.IDLE_RIGHT] = {
                 frames = {
                     1,
                     2,
@@ -106,7 +117,18 @@ ENTITY_DEFS = {
                 interval = 0.15,
                 texture = ENTITIES.HEROES.SWORD_1,
             },
-            [ANIMATIONS.WALK_RIGHTLEFT] = {
+            [ANIMATIONS.WALK_LEFT] = {
+                frames = {
+                    9,
+                    10,
+                    11,
+                    12,
+                },
+                interval = 0.15,
+                texture = ENTITIES.HEROES.SWORD_1,
+                reverse = true,
+            },
+            [ANIMATIONS.WALK_RIGHT] = {
                 frames = {
                     9,
                     10,
@@ -136,7 +158,19 @@ ENTITY_DEFS = {
                 interval = 0.15,
                 texture = ENTITIES.HEROES.SWORD_1,
             },
-            [ANIMATIONS.ATTACK_RIGHTLEFT] = {
+            [ANIMATIONS.ATTACK_LEFT] = {
+                frames = {
+                    17,
+                    18,
+                    19,
+                    20,
+                },
+                interval = 0.05,
+                texture = ENTITIES.HEROES.SWORD_1,
+                looping = false,
+                reverse = true,
+            },
+            [ANIMATIONS.ATTACK_RIGHT] = {
                 frames = {
                     17,
                     18,
@@ -169,7 +203,19 @@ ENTITY_DEFS = {
                 looping = false,
                 texture = ENTITIES.HEROES.SWORD_1,
             },
-            [ANIMATIONS.DIE_RIGHTLEFT] = {
+            [ANIMATIONS.DIE_LEFT] = {
+                frames = {
+                    25,
+                    26,
+                    27,
+                    28,
+                },
+                interval = 0.05,
+                looping = false,
+                texture = ENTITIES.HEROES.SWORD_1,
+                reverse = true,
+            },
+            [ANIMATIONS.DIE_RIGHT] = {
                 frames = {
                     25,
                     26,

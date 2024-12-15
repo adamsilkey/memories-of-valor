@@ -5,6 +5,8 @@
     Email: Adam.Silkey@gmail.com
 
     -- HeroSelectState --
+
+    State is used when a controllable hero is currently selected
 ]]
 
 ---@class HeroSelectState: BaseState
@@ -12,24 +14,19 @@ HeroSelectState = Class{__includes = BaseState}
 
 HeroSelectState.NAME = 'HeroSelectState'
 
----@param level Level
----@param entity Entity
-function HeroSelectState:init(level, entity)
+---@class HeroSelectStateEnterDef
+---@field level Level
+---@field entity Entity
 
+---@param def HeroSelectStateEnterDef
+function HeroSelectState:init(def)
     ---@type Level
-    self.level = level
-
+    self.level = def.level
     ---@type Entity
-    self.selectedEntity = entity
+    self.selectedEntity = def.entity
 
     ---@type boolean Controls whether or not we can input
     self.canInput = true
-
-    ---@type boolean Controls the display of the cursor
-    self.showCursor = true
-
-    -- gSounds[SOUNDS.MUSIC.FIELD]:setLooping(true)
-    -- gSounds[SOUNDS.MUSIC.FIELD]:play()
 
     ---@type boolean Flag to determine if dialogue is currently open
     self.dialogueOpened = false
@@ -50,6 +47,15 @@ function HeroSelectState:render()
     self.level:render()
 end
 
+function HeroSelectState:enter()
+
+    --- Set State Defaults
+    self.canInput = true
+    self.dialogueOpened = false
+    self.selectedEntity.controllable = true
+    self.level.cursor.enabled = false
+end
+
 function HeroSelectState:exit()
-    print("see ya later, nerd")
+    self.level.cursor.enabled = true
 end

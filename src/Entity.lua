@@ -18,6 +18,9 @@ function Entity:init(def, gridX, gridY)
     self.name = def.name
     self.type = def.type
 
+    ---@type boolean Flag that determines if the entity should respond to user input
+    self.controllable = false
+
     -- One of the four cardinal directions (UDLR / NSEW)
     ---@type DIRS
     self.direction = DIRS.DOWN
@@ -35,20 +38,16 @@ function Entity:init(def, gridX, gridY)
 
     -- Entity Dimensions
 
-    self.gridX = gridX  ---@type tileX
-    self.gridY = gridY  ---@type tileY
+    self.gridX = gridX          ---@type tileX
+    self.gridY = gridY          ---@type tileY
+    self.width = ACTOR_SIZE     ---@type iPixels
+    self.height = ACTOR_SIZE    ---@type iPixels
 
     self.x = 0          ---@type pixels
     self.y = 0          ---@type pixels
-
-    ---@type pixels
-    self.offsetX = TILE_SIZE - math.floor(TILE_SIZE / 2)
-    ---@type pixels
-    self.offsetY = math.floor(TILE_SIZE / 2)
+    self.offsetX = TILE_SIZE - math.floor(TILE_SIZE / 2)    ---@type pixels
+    self.offsetY = math.floor(TILE_SIZE / 2)                ---@type pixels
     --- This will put the character in the center of the tile
-
-    self.width = ACTOR_SIZE
-    self.height = ACTOR_SIZE
 
     -- Change the rendering to be based on pixel
     self:tileToPixel()

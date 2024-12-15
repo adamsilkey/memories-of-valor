@@ -41,6 +41,7 @@ function Level:addGoodGuys()
     local swordHero = Entity(heroDef, 2, 2)
     swordHero.stateMachine = StateMachine {
         [STATES.ENTITY_IDLE] = function() return EntityIdleState(swordHero) end,
+        [STATES.ENTITY_WALK] = function() return EntityWalkState(swordHero, self) end,
     }
     swordHero:changeState(STATES.ENTITY_IDLE)
 

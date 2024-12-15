@@ -25,21 +25,32 @@ function EntityBaseState:processAI(params, dt) end
 function EntityBaseState:render()
     -- alias to current animation
     local anim = self.entity.currentAnimation
-    -- Set offsets
+    -- Set offsets and scale factors
     local x = math.floor(self.entity.x - self.entity.offsetX)
     local y = math.floor(self.entity.y - self.entity.offsetY)
+    local sx = 1
+    local sy = 1
 
-    -- Draw Animation
+    -- Draw Animation --- Reverse the sprite if anim.reverse
     love.graphics.draw(
         Textures[anim.texture],
         Frames[anim.texture][anim:getCurrentFrame()],
-        x,
-        y
+        x + (anim.reverse and self.entity.width or 0),
+        y,
+        0,
+        sx * (anim.reverse and -1 or 1),
+        sy
     )
     if DEBUG_MODE then
         ---@DEBUG For showing the boundary of the graphics
         love.graphics.setColor(255, 0, 255, 255)
-        love.graphics.rectangle('line', x, y, self.entity.width, self.entity.height)
+        love.graphics.rectangle(
+            'line',
+            x,
+            y,
+            self.entity.width,
+            self.entity.height
+        )
         love.graphics.setColor(255, 255, 255, 255)
 
         love.graphics.setColor(1, 1, 1, 1)

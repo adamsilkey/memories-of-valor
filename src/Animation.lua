@@ -19,28 +19,33 @@ ANIMATIONS = {
     IDLE_BASE = 'idle-',
     IDLE_UP = 'idle-up',
     IDLE_DOWN = 'idle-down',
-    IDLE_RIGHTLEFT = 'idle-rightleft',
+    IDLE_LEFT = 'idle-left',
+    IDLE_RIGHT = 'idle-right',
 
     WALK_BASE = 'walk-',
     WALK_UP = 'walk-up',
     WALK_DOWN = 'walk-down',
-    WALK_RIGHTLEFT = 'walk-rightleft',
+    WALK_LEFT = 'walk-left',
+    WALK_RIGHT = 'walk-right',
 
     ATTACK_BASE = 'attack-',
     ATTACK_UP = 'attack-up',
     ATTACK_DOWN = 'attack-down',
-    ATTACK_RIGHTLEFT = 'attack-rightleft',
+    ATTACK_LEFT = 'attack-left',
+    ATTACK_RIGHT= 'attack-right',
 
     DIE_BASE = 'die-',
     DIE_UP = 'die-up',
     DIE_DOWN = 'die-down',
-    DIE_RIGHTLEFT = 'die-rightleft',
+    DIE_LEFT = 'die-left',
+    DIE_RIGHT = 'die-right',
 }
 
 ---@class AnimationDef
 ---@field frames frame[]
 ---@field interval seconds
 ---@field texture string
+---@field reverse? boolean
 ---@field looping? boolean
 
 --[[
@@ -57,6 +62,7 @@ function Animation.createAnimations(defs)
             texture = def.texture,
             frames = def.frames,
             interval = def.interval,
+            reverse = def.reverse,
             looping = def.looping,
         }
     end
@@ -72,6 +78,12 @@ function Animation:init(def)
     self.interval = def.interval
     -- Name of texture, for lookup in textures
     self.texture = def.texture
+    -- Flag to determine if animation should be reversed or not, defaults to false
+    self.reverse = def.reverse
+    if self.reverse == nil then
+        self.reverse = false
+    end
+    print(self.reverse)
     -- Flag to determine if animation should loop or not, defaults to true
     self.looping = def.looping
     if self.looping == nil then
