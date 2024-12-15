@@ -54,7 +54,11 @@ function BattleState:init(level)
 end
 
 function BattleState:enter()
+    -- Enable Cursor in BattleState
     self.level.cursor.enabled = true
+
+    -- Enable Quit
+    Game.CAN_QUIT = true
 end
 
 function BattleState:update(dt)

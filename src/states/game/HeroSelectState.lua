@@ -56,6 +56,9 @@ end
 
 function HeroSelectState:enter()
 
+    --- Disable GameQuit in this State
+    Game.CAN_QUIT = false
+
     --- Set State Defaults
     self.canInput = true
     self.dialogueOpened = false

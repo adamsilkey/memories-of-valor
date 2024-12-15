@@ -114,7 +114,7 @@ function Cursor:render()
             1
         )
 
-        if DEBUG_MODE then
+        if Game.DEBUG_MODE then
             ---@DEBUG Shows cursor stats
             love.graphics.setColor(1, 1, 1, 1)
             love.graphics.setFont(Fonts[FONTS.SMALL])

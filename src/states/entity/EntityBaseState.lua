@@ -41,7 +41,7 @@ function EntityBaseState:render()
         sx * (anim.reverse and -1 or 1),
         sy
     )
-    if DEBUG_MODE then
+    if Game.DEBUG_MODE then
         ---@DEBUG For showing the boundary of the graphics
         love.graphics.setColor(255, 0, 255, 255)
         love.graphics.rectangle(

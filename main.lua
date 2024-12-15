@@ -9,8 +9,16 @@
 
 require "src/Dependencies"
 
----@DEBUG BESURE TO SET THIS TO FALSE AND DISABLE OVERALL BUG ABILITY
-DEBUG_MODE = true
+
+---@class Game Singleton God Table to hold globals
+Game = {
+    ---@type boolean Controls whether or not we can quit the game
+    CAN_QUIT = true,
+
+    ---@DEBUG BESURE TO SET THIS TO FALSE AND DISABLE OVERALL BUG ABILITY
+    ---@type boolean Enables Debug Mode Options
+    DEBUG_MODE = true,
+}
 
 function love.load()
     math.randomseed(os.time())
@@ -68,14 +76,14 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
-    if key == KEYS.ESCAPE then
+    if Game.CAN_QUIT and key == KEYS.ESCAPE then
         ---@TODO gonna want to implement the state stack stuff here
         love.event.quit()
     end
 
     if key == KEYS.F1 then
-        DEBUG_MODE = not DEBUG_MODE
-        print("Debug mode is now: " .. (DEBUG_MODE and "ON" or "OFF"))
+        Game.DEBUG_MODE = not Game.DEBUG_MODE
+        print("Debug mode is now: " .. (Game.DEBUG_MODE and "ON" or "OFF"))
     end
 
 
@@ -169,7 +177,7 @@ end
 function love.draw()
     push:start()
     StateStack:render()
-    if DEBUG_MODE then
+    if Game.DEBUG_MODE then
         StateStack:debugShowStack()
     end
     push:finish()
