@@ -46,6 +46,25 @@ Vector.COMPASS = {
 }
 
 --[[
+    Go from an x, y to a LRUD DIRS
+]]
+---comment
+---@param x integer
+---@param y integer
+---@return DIRS
+function Vector.transformToLRUD(x, y)
+    if x == 0 and y == -1 then
+        return DIRS.UP
+    elseif x == -1 and y == 0 then
+        return DIRS.LEFT
+    elseif x == 1 and y == 0 then
+        return DIRS.RIGHT
+    else -- x == 0, y == 1
+        return DIRS.DOWN
+    end
+end
+
+--[[
     Coordinate string, similar to what is used by Coordinates()
 ]]
 ---@param x number

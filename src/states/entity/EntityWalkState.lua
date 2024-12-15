@@ -62,7 +62,6 @@ function EntityWalkState:attemptMove()
         return
     end
 
-
     -- Since we are moving between grid spots, we tween the X/Y position of our sprite
     -- over a short time period
     Timer.tween(0.15, {

@@ -27,6 +27,9 @@ function TileMap:init(layerdef)
     ---@type Tile[][] Array of all the tiles
     self.tiles = {}
 
+    ---@type integer[][] Raw Grid of ints
+    self.rawgrid = {}
+
     ---@type Coordinates A Dictionary that allows us to look up if a tile is in a specific layer
     self.coordinates = Coordinates()
 
@@ -43,12 +46,14 @@ function TileMap:init(layerdef)
     local currentTile           ---@type frame
     for y = 1, self.height do
         table.insert(self.tiles, {})
+        table.insert(self.rawgrid, {})
         for x = 1, self.width do
             -- Tiled Layer data is sequential, so we need to ensure that we are accounting
             -- for the width by offsetting by the width by the number of layers
             currentTileIndex = x + (y - 1) * self.width
             currentTile = self.layerdef.data[currentTileIndex]
             table.insert(self.tiles[y], Tile(x, y, currentTile))
+            table.insert(self.rawgrid[y], currentTile)
 
             --- Add collisions
             if self.class == TileMap.CLASSES.COLLISION then

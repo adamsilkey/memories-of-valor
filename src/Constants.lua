@@ -44,6 +44,9 @@ TILE_SIZE = 16          ---@type iPixels Tile Size
 ACTOR_SIZE = 32         ---@type iPixels Tile Size of Actors
 ICON_SIZE = 32          ---@type iPixels Tile Size of Icons
 
+---@type seconds The global amount of time required to go move between tiles
+ENTITY_MOVE_TIME = 0.15
+
 
 ---
 --- CLASS DEFS------------------------------------------------------------------

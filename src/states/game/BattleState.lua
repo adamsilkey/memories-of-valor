@@ -54,7 +54,7 @@ function BattleState:init(level)
 end
 
 function BattleState:enter(params)
-    print('did we enter???')
+    print('entering BattleState')
     -- Enable Cursor in BattleState
     self.level.cursor:enable()
 

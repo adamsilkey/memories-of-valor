@@ -31,6 +31,14 @@ function Level:init(tilemapDef)
         -- If there's a collision layer, use that to determine collisions
         if tilemap.class == TileMap.CLASSES.COLLISION then
             self.collision = tilemap.coordinates
+
+            --- Jumper Grid for Pathfinding
+            self.grid = Grid(tilemap.rawgrid)
+            --- Jumper Pathfinder (0 is passable)
+            local method = 'JPS'
+            -- local method = 'ASTAR'
+            self.pathfinder = Pathfinder(self.grid, method, 0)
+            self.pathfinder:setMode('ORTHOGONAL')
         end
     end
 
@@ -62,6 +70,7 @@ function Level:addGoodGuys()
         ---@type Entity
         local hero = Entity(heroDef, startVec.x, startVec.y)
         hero.stateMachine = StateMachine {
+            [STATES.ENTITY_AUTO_WALK] = function() return EntityAutoWalkState(hero, self) end,
             [STATES.ENTITY_IDLE] = function() return EntityIdleState(hero) end,
             [STATES.ENTITY_WALK] = function() return EntityWalkState(hero, self) end,
         }
@@ -89,6 +98,7 @@ function Level:addBadGuys()
         ---@type Entity
         local badguy = Entity(badguyDef, startVec.x, startVec.y)
         badguy.stateMachine = StateMachine {
+            [STATES.ENTITY_AUTO_WALK] = function() return EntityAutoWalkState(badguy, self) end,
             [STATES.ENTITY_IDLE] = function() return EntityIdleState(badguy) end,
             [STATES.ENTITY_WALK] = function() return EntityWalkState(badguy, self) end,
         }

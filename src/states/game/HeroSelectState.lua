@@ -37,14 +37,32 @@ function HeroSelectState:init(def)
         level = self.level,
     }
     self.level.rangeFinder = RangeFinder(rangeDef)
+
+    ---@type tileX Stores starting X Position
+    self.originX = self.selectedEntity.gridX
+    ---@type tileY Stores starting Y Position
+    self.originY = self.selectedEntity.gridY
 end
 
 function HeroSelectState:update(dt)
     if not self.dialogueOpened then
-        if love.keyboard.wasPressed(KEYS.ENTER) or love.keyboard.wasPressed(KEYS.RETURN)
-            or love.mouse.wasPressed(1) then
-            StateStack:pop()
+        if (
+            love.keyboard.wasPressed(KEYS.ENTER) or
+            love.keyboard.wasPressed(KEYS.RETURN)
+            or love.mouse.wasPressed(1)
+        ) then
+            print("Enter a menu, dude!")
         elseif love.keyboard.wasPressed(KEYS.ESCAPE) then
+            -- Disable control of Hero
+            self.selectedEntity.controllable = false
+
+            local defs = {
+                toX = self.originX,
+                toY = self.originY
+            }
+            self.selectedEntity:changeState(STATES.ENTITY_AUTO_WALK, defs)
+
+            -- Return to origin spot
             StateStack:pop()
         end
     end
@@ -69,8 +87,8 @@ function HeroSelectState:enter(params)
 end
 
 function HeroSelectState:exit()
-    -- Disable control of Hero
-    self.selectedEntity.controllable = false
+    print('leaving HeroSelectState')
+
     -- Set location of cursor to the x, y of current selected entity
     self.level.cursor.tileX = self.selectedEntity.gridX
     self.level.cursor.tileY = self.selectedEntity.gridY

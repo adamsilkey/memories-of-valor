@@ -68,6 +68,7 @@ require 'src/states/BaseState'
 require 'src/states/StateStack'
 
 require 'src/states/entity/EntityBaseState'
+require 'src/states/entity/EntityAutoWalkState'
 require 'src/states/entity/EntityIdleState'
 require 'src/states/entity/EntityWalkState'
 require 'src/states/game/BattleState'
@@ -82,6 +83,7 @@ STATES = {
 
     --- Entity States
     ENTITY_BASE = EntityBaseState.NAME,
+    ENTITY_AUTO_WALK = EntityAutoWalkState.NAME,
     ENTITY_IDLE = EntityIdleState.NAME,
     ENTITY_WALK = EntityWalkState.NAME,
 
@@ -97,6 +99,7 @@ STATES = {
 ---@alias State
 ---| BaseState
 ---| EntityBaseState
+---| EntityAutoWalkState
 ---| EntityIdleState
 ---| EntityWalkState
 ---| BattleState
