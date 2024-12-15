@@ -56,7 +56,7 @@ end
 function BattleState:enter(params)
     print('did we enter???')
     -- Enable Cursor in BattleState
-    self.level.cursor.enabled = true
+    self.level.cursor:enable()
 
     -- Enable Quit
     Game.CAN_QUIT = true

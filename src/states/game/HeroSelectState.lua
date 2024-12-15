@@ -65,7 +65,7 @@ function HeroSelectState:enter(params)
     self.canInput = true
     self.dialogueOpened = false
     self.selectedEntity.controllable = true
-    self.level.cursor.enabled = false
+    self.level.cursor:disable()
 end
 
 function HeroSelectState:exit()
@@ -77,5 +77,5 @@ function HeroSelectState:exit()
     -- Remove RangeFinder
     self.level.rangeFinder = nil
     -- Re-enable cursor
-    self.level.cursor.enabled = true
+    self.level.cursor:enable()
 end

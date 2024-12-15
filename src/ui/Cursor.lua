@@ -212,3 +212,13 @@ function Cursor:handleKeyboard()
         end
     end
 end
+
+function Cursor:disable()
+    self.enabled = false
+    self.cursorPressed = false
+end
+
+function Cursor:enable()
+    self.enabled = true
+    self.cursorPressed = false
+end
