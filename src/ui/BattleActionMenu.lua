@@ -71,8 +71,24 @@ function BattleActionMenu:init()
         ),
     }
 
+    ---@type BattleActionMenu.DIRS Stores the name of the currently selected menu
     self.currentPanel = self.DIRS.N
 
+    ---@type boolean Flag to tell us if a selection was pressed (so we don't send multiple events)
+    self.selectionPressed = false
+end
+
+function BattleActionMenu:interaction()
+    --- Insantiate a new cursor
+    --- Limit Cursor range to attack range (make it melee for now)
+    --- Selection on self
+end
+
+function BattleActionMenu:stayhere()
+    --- Pop the state stack of the battle menu
+    StateStack:pop()
+    --- Pop the state stack of the HeroSelectState
+    StateStack:pop()
 end
 
 function BattleActionMenu:update(dt)
@@ -84,6 +100,35 @@ function BattleActionMenu:update(dt)
         self.currentPanel = self.DIRS.N
     elseif love.keyboard.isDown(KEYS.DOWN, KEYS.D) then
         self.currentPanel = self.DIRS.S
+    end
+
+    --- Menu Selection
+    ---@TODO reimplement mouse here
+    -- if we've pressed enter or (mouse disabled atm -- used the mouse...)
+    if not self.selectionPressed and
+        (love.keyboard.wasPressed(KEYS.ENTER) or
+        love.keyboard.wasPressed(KEYS.RETURN))
+        -- love.mouse.wasPressed(1)
+    then
+        self.selectionPressed = true
+
+        if self.currentPanel == BattleActionMenu.DIRS.N then
+            self:interaction()
+        elseif self.currentPanel == BattleActionMenu.DIRS.S then
+            self:stayhere()
+        elseif self.currentPanel == BattleActionMenu.DIRS.W then
+
+        else -- East/Right/Panel 4
+
+        end
+    end
+
+    if self.selectionPressed and
+        (love.keyboard.wasReleased(KEYS.ENTER) or
+        love.keyboard.wasReleased(KEYS.RETURN))
+        -- love.mouse.wasReleased(1)
+    then
+        self.selectionPressed = false
     end
 end
 

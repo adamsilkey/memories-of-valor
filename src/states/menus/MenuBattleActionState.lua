@@ -45,10 +45,9 @@ function MenuBattleActionState:update(dt)
     self.menu:update(dt)
 
     ---@TODO maybe use anypress here
-    if love.keyboard.wasPressed(KEYS.ENTER)
-        or love.keyboard.wasPressed(KEYS.RETURN)
-        or love.keyboard.wasPressed(KEYS.ESCAPE)
-    then
+    -- if love.keyboard.wasPressed(KEYS.ENTER)
+    --     or love.keyboard.wasPressed(KEYS.RETURN)
+    if love.keyboard.wasPressed(KEYS.ESCAPE) then
         StateStack:pop()
         self.onClose()
     end

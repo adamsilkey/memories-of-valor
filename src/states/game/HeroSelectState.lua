@@ -51,7 +51,7 @@ function HeroSelectState:update(dt)
             love.keyboard.wasPressed(KEYS.RETURN)
             or love.mouse.wasPressed(1)
         ) then
-            print("Enter a menu, dude!")
+            -- print("Enter a menu, dude!")
             StateStack:push(MenuBattleActionState(
                 self.level,
                 self.selectedEntity,
@@ -94,6 +94,9 @@ end
 function HeroSelectState:exit()
     print('leaving HeroSelectState')
 
+    -- Turn off control of the selected Entity
+    self.selectedEntity.controllable = false
+
     -- Set location of cursor to the x, y of current selected entity
     self.level.cursor.tileX = self.selectedEntity.gridX
     self.level.cursor.tileY = self.selectedEntity.gridY
@@ -101,4 +104,7 @@ function HeroSelectState:exit()
     self.level.rangeFinder = nil
     -- Re-enable cursor
     self.level.cursor:enable()
+
+    -- Release selectedEntity
+    self.selectedEntity = nil
 end
