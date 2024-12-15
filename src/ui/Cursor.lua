@@ -14,6 +14,7 @@ Cursor = Class{}
 
 ---@param level Level Reference to the current level
 function Cursor:init(level)
+    assert(level ~= nil, "didn't pass in level")
     -- Reference to current Level()
     self.level = level
 
@@ -187,16 +188,16 @@ function Cursor:handleKeyboard()
     -- Only repeat the action if the keyhold timer has gone above 0
     if self.keyholdTimer >= 0 then
         if love.keyboard.isDown(KEYS.UP, KEYS.W) then
-            self.tileY = math.max(0, self.tileY - 1)
+            self.tileY = math.max(1, self.tileY - 1)
             self.keyholdTimer = -DELAY_THRESHOLD
         elseif love.keyboard.isDown(KEYS.DOWN, KEYS.S) then
-            self.tileY = math.min(self.level.height - 1, self.tileY + 1)
+            self.tileY = math.min(self.level.height, self.tileY + 1)
             self.keyholdTimer = -DELAY_THRESHOLD
         elseif love.keyboard.isDown(KEYS.LEFT, KEYS.A) then
-            self.tileX = math.max(0, self.tileX - 1)
+            self.tileX = math.max(1, self.tileX - 1)
             self.keyholdTimer = -DELAY_THRESHOLD
         elseif love.keyboard.isDown(KEYS.RIGHT, KEYS.D) then
-            self.tileX = math.min(self.level.width - 1, self.tileX + 1)
+            self.tileX = math.min(self.level.width, self.tileX + 1)
             self.keyholdTimer = -DELAY_THRESHOLD
         end
 
