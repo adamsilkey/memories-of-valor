@@ -46,10 +46,12 @@ function StateStack:push(state)
     state:enter()
 end
 
-function StateStack:pop()
+---@param params? table Table of Parameters
+function StateStack:pop(params)
     -- self.states[#self.states]:exit()
     self:top():exit()
     table.remove(self.states)
+    self:top():enter(params)
 end
 
 function StateStack:debugShowStack()
