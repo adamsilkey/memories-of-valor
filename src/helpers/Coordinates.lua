@@ -85,19 +85,37 @@ end
 
 --[[
     Iterate over the coordinates, returning back the converted coordinate pair
+    Call like so:
+        for x, y in Coordinates:values() do
+            blah blah x, y
+        end
 ]]
-function Coordinates:members()
-    -- Iterator is the parent iterator (Set:keys())
-    local keyIterator = self:keys()
+function Coordinates:values()
+    local iter, tbl, key = pairs(self)
+    local value
     return function()
-        -- Redefine this to avoid some lua bugs related to scope
-        local key = keyIterator()
-        -- Check for nil -- if we have that, we want to return nil, which shows end of iteration
+        local x, y
+        key, value = iter(tbl, key)
+
+        -- There's a potential here that we'll find an improper type value from
+        -- our iterator: a function, a special internal variable, or even something
+        -- like .len.
+        -- If that's the case, we need to keep iterating until we find something proper
+        -- again
+        while key and (
+            key == 'len' or
+            string.sub(key, 1, 1) == '==' or
+            type(value) == 'function'
+        ) do
+            key, value = iter(tbl, key)
+        end
+
+        -- Return nil if we've run out of keys
         if key == nil then
             return nil
         end
-        -- Convert the underlying key to a set of integers representing the coordinates
-        local x, y = convertCoordinate(key)
+        -- Else, concatenate our coordiantes and go from there
+        x, y = convertCoordinate(key)
         return x, y
     end
 end

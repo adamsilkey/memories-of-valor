@@ -29,12 +29,15 @@ require 'src/StateMachine'
 require 'src/Util'
 
 require 'src/helpers/Coordinates'
+require 'src/helpers/Deque'
 require 'src/helpers/Set'
 require 'src/helpers/SparseArray'
+require 'src/helpers/Vector'
 
 require 'src/defs/EntityDefs'
 
 require 'src/ui/Cursor'
+require 'src/ui/RangeFinder'
 
 require 'src/world/Level'
 require 'src/world/Tile'
@@ -109,29 +112,6 @@ MapDefs = {
 }
 
 
----
---- GRAPHICS CONSTANTS ---------------------------------------------------------
----
-
---- Add textures both here and in constants.lua
-
----@class GFX Namespace for Graphics Constants
-GFX = {}
-
----@enum GFX.BACKGROUNDS Namespace for Backgrounds
-GFX.BACKGROUNDS = {
-    TITLE = 'title',
-}
-
----@enum GFX.TILES Namespace for tiles
-GFX.TILES = {
-    WORLD = 'world',
-}
-
-
----@TODO Add a check here that checks for any name collisions
----@TODO Check collisions against EntityDefs
-
 
 ---
 --- TEXTURES -------------------------------------------------------------------
@@ -140,6 +120,12 @@ GFX.TILES = {
 Textures = {
     [ENTITIES.HEROES.SWORD_1] = love.graphics.newImage('assets/actors/heroes/Sword1.png'),
     [GFX.BACKGROUNDS.TITLE] = love.graphics.newImage('assets/backgrounds/title.png'),
+    [GFX.UI.RANGE_FINDER_BLUE_50] = love.graphics.newImage('assets/ui/RangeFinderBlue50.png'),
+    [GFX.UI.RANGE_FINDER_BLUE_FULL] = love.graphics.newImage('assets/ui/RangeFinderBlueFull.png'),
+    [GFX.UI.RANGE_FINDER_GREEN_50] = love.graphics.newImage('assets/ui/RangeFinderGreen50.png'),
+    [GFX.UI.RANGE_FINDER_GREEN_FULL] = love.graphics.newImage('assets/ui/RangeFinderGreenFull.png'),
+    [GFX.UI.RANGE_FINDER_RED_50] = love.graphics.newImage('assets/ui/RangeFinderRed50.png'),
+    [GFX.UI.RANGE_FINDER_RED_FULL] = love.graphics.newImage('assets/ui/RangeFinderRedFull.png'),
     [GFX.TILES.WORLD] = love.graphics.newImage('assets/tiles/WorldTileset.png'),
 }
 
@@ -150,6 +136,12 @@ Textures = {
 
 Frames = {
     [ENTITIES.HEROES.SWORD_1] = GenerateQuads(Textures[ENTITIES.HEROES.SWORD_1], ACTOR_SIZE, ACTOR_SIZE),
+    [GFX.UI.RANGE_FINDER_BLUE_50] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_BLUE_50], TILE_SIZE, TILE_SIZE),
+    [GFX.UI.RANGE_FINDER_BLUE_FULL] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_BLUE_FULL], TILE_SIZE, TILE_SIZE),
+    [GFX.UI.RANGE_FINDER_GREEN_50] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_GREEN_50], TILE_SIZE, TILE_SIZE),
+    [GFX.UI.RANGE_FINDER_GREEN_FULL] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_GREEN_FULL], TILE_SIZE, TILE_SIZE),
+    [GFX.UI.RANGE_FINDER_RED_50] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_RED_50], TILE_SIZE, TILE_SIZE),
+    [GFX.UI.RANGE_FINDER_RED_FULL] = GenerateQuads(Textures[GFX.UI.RANGE_FINDER_RED_FULL], TILE_SIZE, TILE_SIZE),
     [GFX.TILES.WORLD] = GenerateQuads(Textures[GFX.TILES.WORLD], TILE_SIZE, TILE_SIZE),
 }
 

@@ -27,6 +27,11 @@ function EntityWalkState:enter(params)
 end
 
 function EntityWalkState:attemptMove()
+    -- We can only move the entity when the entity is controllable
+    if not self.entity.controllable then
+        self.entity:changeState(STATES.ENTITY_IDLE)
+    end
+
     self.entity:changeAnimation(ANIMATIONS.WALK_BASE .. tostring(self.entity.direction))
 
     local toX, toY = self.entity.gridX, self.entity.gridY
@@ -48,15 +53,19 @@ function EntityWalkState:attemptMove()
         return
     end
 
-    self.entity.gridY = toY
-    self.entity.gridX = toX
-
+    -- Since we are moving between grid spots, we tween the X/Y position of our sprite
+    -- over a short time period
     Timer.tween(0.15, {
         [self.entity] = {
             x = (toX - 1) * TILE_SIZE,
             y = (toY - 1) * TILE_SIZE,
         }
     }):finish(function()
+        -- Update the entity's gridX/gridY
+        self.entity.gridY = toY
+        self.entity.gridX = toX
+
+        -- Handle additional input
         if love.keyboard.isDown(KEYS.LEFT, KEYS.A) then
             self.entity.direction = DIRS.LEFT
             self.entity:changeState(STATES.ENTITY_WALK)
@@ -70,6 +79,8 @@ function EntityWalkState:attemptMove()
             self.entity.direction = DIRS.DOWN
             self.entity:changeState(STATES.ENTITY_WALK)
         else
+            -- Always look down when exiting movement
+            self.entity.direction = DIRS.DOWN
             self.entity:changeState(STATES.ENTITY_IDLE)
         end
     end)

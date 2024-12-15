@@ -27,11 +27,15 @@ function Level:init(tilemapDef)
     ---@type Cursor Strategic Cursor used to select items on map
     self.cursor = Cursor(self)
 
+    ---@type RangeFinder RangeFinder that shows how far someone can move
+    self.rangeFinder = nil
+
     -- Entities in the Level
     ---@type Entity[]
     self.entities = {}
 
     self:addGoodGuys()
+
 end
 
 
@@ -53,12 +57,20 @@ function Level:update(dt)
     for i, entity in ipairs(self.entities) do
         entity:update(dt)
     end
+
+    if self.rangeFinder ~= nil then
+        self.rangeFinder:update(dt)
+    end
     self.cursor:update(dt)
 end
 
 function Level:render()
     for index, layer in ipairs(self.layers) do
         layer:render()
+    end
+
+    if self.rangeFinder ~= nil then
+        self.rangeFinder:render()
     end
 
     for i, entity in ipairs(self.entities) do

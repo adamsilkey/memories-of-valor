@@ -56,6 +56,40 @@ ACTOR_SIZE = 32         ---@type iPixels Tile Size of Actors
 
 
 ---
+--- GRAPHICS CONSTANTS ---------------------------------------------------------
+---
+
+--- Add textures both here and in constants.lua
+
+---@class GFX Namespace for Graphics Constants
+GFX = {}
+
+---@enum GFX.BACKGROUNDS Namespace for Backgrounds
+GFX.BACKGROUNDS = {
+    TITLE = 'title',
+}
+
+---@enum GFX.UI Namespace for UI
+GFX.UI = {
+    RANGE_FINDER_BLUE_50 = 'RangeFinderBlue50',
+    RANGE_FINDER_BLUE_FULL = 'RangeFinderBlueFull',
+    RANGE_FINDER_GREEN_50 = 'RangeFinderGreen50',
+    RANGE_FINDER_GREEN_FULL = 'RangeFinderGreenFull',
+    RANGE_FINDER_RED_50 = 'RangeFinderRed50',
+    RANGE_FINDER_RED_FULL = 'RangeFinderRedFull',
+}
+
+---@enum GFX.TILES Namespace for tiles
+GFX.TILES = {
+    WORLD = 'world',
+}
+
+
+---@TODO Add a check here that checks for any name collisions
+---@TODO Check collisions against EntityDefs
+
+
+---
 --- KEYBOARD -------------------------------------------------------------------
 ---
 

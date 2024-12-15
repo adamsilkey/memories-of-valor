@@ -30,6 +30,13 @@ function HeroSelectState:init(def)
 
     ---@type boolean Flag to determine if dialogue is currently open
     self.dialogueOpened = false
+
+    ---@type RangeFinderDef
+    local rangeDef = {
+        entity = self.selectedEntity,
+        level = self.level,
+    }
+    self.level.rangeFinder = RangeFinder(rangeDef)
 end
 
 function HeroSelectState:update(dt)
@@ -57,5 +64,13 @@ function HeroSelectState:enter()
 end
 
 function HeroSelectState:exit()
+    -- Disable control of Hero
+    self.selectedEntity.controllable = false
+    -- Set location of cursor to the x, y of current selected entity
+    self.level.cursor.tileX = self.selectedEntity.gridX
+    self.level.cursor.tileY = self.selectedEntity.gridY
+    -- Remove RangeFinder
+    self.level.rangeFinder = nil
+    -- Re-enable cursor
     self.level.cursor.enabled = true
 end
