@@ -10,12 +10,25 @@
 ---@class TileMap
 TileMap = Class{}
 
+---@enum TileMap.CLASSES
+TileMap.CLASSES = {
+    MAP = 'Map',
+    COLLISION = 'Collision',
+}
+
+
 ---@param layerdef TileMapLayerDef
 function TileMap:init(layerdef)
     self.layerdef = layerdef
 
+    self.name = layerdef.name
+    self.class = layerdef.class
+
     ---@type Tile[][] Array of all the tiles
     self.tiles = {}
+
+    ---@type Coordinates A Dictionary that allows us to look up if a tile is in a specific layer
+    self.coordinates = Coordinates()
 
     ---@type integer Width of TileMap in number of tiles
     self.width = self.layerdef.width
@@ -23,14 +36,26 @@ function TileMap:init(layerdef)
     ---@type integer Height of TileMap in number of tiles
     self.height = self.layerdef.height
 
-    local currentTile
+    ---@type boolean Determines if a map layer is visible or not
+    self.visible = self.layerdef.visible
+
+    local currentTileIndex
+    local currentTile           ---@type frame
     for y = 1, self.height do
         table.insert(self.tiles, {})
         for x = 1, self.width do
             -- Tiled Layer data is sequential, so we need to ensure that we are accounting
             -- for the width by offsetting by the width by the number of layers
-            currentTile = x + (y - 1) * self.width
-            table.insert(self.tiles[y], Tile(x, y, self.layerdef.data[currentTile]))
+            currentTileIndex = x + (y - 1) * self.width
+            currentTile = self.layerdef.data[currentTileIndex]
+            table.insert(self.tiles[y], Tile(x, y, currentTile))
+
+            --- Add collisions
+            if self.class == TileMap.CLASSES.COLLISION then
+                if currentTile == TILE_IDS.BLOCKED then
+                    self.coordinates:add(x, y)
+                end
+            end
         end
     end
 end

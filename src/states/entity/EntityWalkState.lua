@@ -46,8 +46,9 @@ function EntityWalkState:attemptMove()
         toY = toY + 1
     end
 
-    -- break out if we try to move out of the map boundaries
-    if toX < 1 or toX > self.level.width or toY < 1 or toY > self.level.height then
+    -- break out if we try to move out of the map boundaries or try to move through an impassible spot
+    -- if toX < 1 or toX > self.level.width or toY < 1 or toY > self.level.height then
+    if not self.level:inbounds(toX, toY) or not self.level:isPassable(toX, toY) then
         self.entity:changeState(STATES.ENTITY_IDLE)
         self.entity:changeAnimation(ANIMATIONS.IDLE_BASE .. tostring(self.entity.direction))
         return

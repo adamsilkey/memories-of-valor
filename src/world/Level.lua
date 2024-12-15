@@ -18,11 +18,22 @@ function Level:init(tilemapDef)
     self.width = self.tilemapDef.width      ---@type integer Number of tiles by width
     self.height = self.tilemapDef.height    ---@type integer Number of tiles by height
 
+    ---@type Coordinates Holds all the impassible tiles
+    self.collision = Coordinates()
+
     ---@type TileMap[]
     self.layers = {}
     for index, layerdef in ipairs(self.tilemapDef.layers) do
-        table.insert(self.layers, TileMap(layerdef))
+        ---@class TileMap
+        local tilemap = TileMap(layerdef)
+        table.insert(self.layers, tilemap)
+
+        -- If there's a collision layer, use that to determine collisions
+        if tilemap.class == TileMap.CLASSES.COLLISION then
+            self.collision = tilemap.coordinates
+        end
     end
+
 
     ---@type Cursor Strategic Cursor used to select items on map
     self.cursor = Cursor(self)
@@ -36,7 +47,6 @@ function Level:init(tilemapDef)
 
     self:addGoodGuys()
     self:addBadGuys()
-
 end
 
 
@@ -74,7 +84,7 @@ function Level:addBadGuys()
         local badguyString = badguyTbl[1]
         local startVec = badguyTbl[2]
 
-        print('adding StartVec: ', Vector.cString(startVec.x, startVec.y))
+        -- print('adding StartVec: ', Vector.cString(startVec.x, startVec.y))
         local badguyDef = ENTITY_DEFS[badguyString]
         ---@type Entity
         local badguy = Entity(badguyDef, startVec.x, startVec.y)
@@ -87,8 +97,6 @@ function Level:addBadGuys()
         table.insert(self.entities, badguy)
     end
 end
-
-
 
 function Level:update(dt)
     -- self.player:update(dt)
@@ -104,7 +112,9 @@ end
 
 function Level:render()
     for index, layer in ipairs(self.layers) do
-        layer:render()
+        if layer.visible then
+            layer:render()
+        end
     end
 
     if self.rangeFinder ~= nil then
@@ -124,4 +134,23 @@ end
 ---@return boolean
 function Level:inbounds(tileX, tileY)
     return tileX >= 1 and tileX <= self.width and tileY >= 1 and tileY <= self.height
+end
+
+--- Determines if an entity can pass a given coordinate
+---@param tileX tileX
+---@param tileY tileY
+---@return boolean
+function Level:isPassable(tileX, tileY)
+    local passable = not self.collision:find(tileX, tileY)
+    return passable
+end
+
+--- Determines if an entity can stop on a given coordinate
+---@param tileX tileX
+---@param tileY tileY
+---@param entity Entity
+---@return boolean
+function Level:isStoppable(tileX, tileY, entity)
+    local stoppable = not self.collision:find(tileX, tileY)
+    return stoppable
 end

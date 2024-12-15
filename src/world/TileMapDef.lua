@@ -49,3 +49,8 @@
 ---@field nextobjectid integer
 ---@field properties table
 ---@field layers TileMapLayerDef[]
+
+---@enum TILE_IDS List of special tileIDs
+TILE_IDS = {
+    BLOCKED = 400,
+}

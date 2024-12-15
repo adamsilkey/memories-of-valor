@@ -131,7 +131,7 @@ function RangeFinder:bfs()
             seen:add(nx, ny)
 
             ---@TODO this is where we would add checking for obstacles
-            if self.level:inbounds(nx, ny) then
+            if self.level:inbounds(nx, ny) and self.level:isPassable(nx, ny) then
                 --- Add to our distances map
                 distances[Vector.cString(nx, ny)] = nextDistance
 
